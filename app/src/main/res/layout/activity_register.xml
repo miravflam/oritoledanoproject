@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/black"
+    tools:context=".UI.Register.RegisterActivity">
+
+
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo"
+        android:background="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="32dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Full Name"
+        android:inputType="textPersonName"
+        android:backgroundTint="#D35229"
+        android:padding="12dp"
+        android:textColorHint="@color/white"
+        android:maxLength="10"
+        android:layout_marginBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:backgroundTint="#D35229"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:textColorHint="@color/white"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:backgroundTint="#D35229"
+        android:inputType="textPassword"
+
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/editTextPasswordConfirmation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/white"
+
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:backgroundTint="#D35229"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/editTextPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:textColorHint="@color/white"
+
+
+        android:inputType="phone"
+        android:backgroundTint="#D35229"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/editTextAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/white"
+
+        android:hint="Address"
+        android:inputType="textPostalAddress"
+        android:backgroundTint="#D35229"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="have an account already? click here to Log In"
+        android:textColor="@color/white"
+        android:layout_marginBottom="24dp"
+        android:textSize="14dp"
+        android:clickable="true"
+        />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:backgroundTint="#D35229"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
