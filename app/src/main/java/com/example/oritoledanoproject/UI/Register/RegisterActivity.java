@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.oritoledanoproject.R;
 import com.example.oritoledanoproject.UI.Login.MainActivity;
 import com.example.oritoledanoproject.UI.Login.ModuleLogin;
+import com.example.oritoledanoproject.UI.Store.StoreActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,9 +56,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (!moduleRegister.CheckUps(etUser, etEmail, etPass, etPassConfirm, etPhone, etAddress)) {
                 return;
             }
-//            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-//            startActivity(intent);
-            Toast.makeText(this, "you did it!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegisterActivity.this, StoreActivity.class);
+            startActivity(intent);
+
         }
     }
 }

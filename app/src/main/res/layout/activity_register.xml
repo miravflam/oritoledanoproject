@@ -27,6 +27,7 @@
         android:inputType="textPersonName"
         android:backgroundTint="#D35229"
         android:padding="12dp"
+        android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
         android:maxLength="10"
         android:layout_marginBottom="12dp"/>
@@ -36,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
         android:inputType="textEmailAddress"
         android:backgroundTint="#D35229"
@@ -45,7 +47,7 @@
     <EditText
         android:id="@+id/editTextPassword"
         android:textColorHint="@color/white"
-
+        android:textColor="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
@@ -60,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/white"
-
+        android:textColor="#FFFFFF"
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:backgroundTint="#D35229"
@@ -73,8 +75,7 @@
         android:layout_height="wrap_content"
         android:hint="Phone Number"
         android:textColorHint="@color/white"
-
-
+        android:textColor="#FFFFFF"
         android:inputType="phone"
         android:backgroundTint="#D35229"
         android:padding="12dp"
@@ -85,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/white"
-
+        android:textColor="#FFFFFF"
         android:hint="Address"
         android:inputType="textPostalAddress"
         android:backgroundTint="#D35229"

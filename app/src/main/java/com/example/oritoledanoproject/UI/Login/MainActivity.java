@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.oritoledanoproject.R;
 import com.example.oritoledanoproject.UI.Register.RegisterActivity;
+import com.example.oritoledanoproject.UI.Store.StoreActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,9 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             switch (moduleLogin.isExist(etUser, etPass)) {
                 case 0: {
-//                    Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-//                    startActivity(intent);
-                    Toast.makeText(this, "you did it", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                    startActivity(intent);
                     return;
                 }
                 case 1:
