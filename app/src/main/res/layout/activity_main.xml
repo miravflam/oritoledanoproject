@@ -42,6 +42,13 @@
         android:layout_marginBottom="8dp"
         />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember me"
+        android:textColor="#FFFFFF"
+        android:id="@+id/checkbox"
+        />
     <TextView
         android:id="@+id/tvRegister"
         android:layout_width="wrap_content"

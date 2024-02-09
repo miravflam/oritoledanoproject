@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".UI.Store.StoreActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- User Info -->
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome, Jane Doe"
+        android:textSize="20sp"
+        android:padding="16dp"/>
+
+    <!-- Categories -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userNameTextView"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Category Buttons -->
+        <ImageButton
+            android:id="@+id/shirtsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:contentDescription="Shirts"/>
+
+        <ImageButton
+            android:id="@+id/pantsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Pants"/>
+
+        <ImageButton
+            android:id="@+id/accessoriesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Accessories"/>
+
+        <ImageButton
+            android:id="@+id/skirtsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Skirts"/>
+
+        <ImageButton
+            android:id="@+id/sweatshirtButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Sweatshirt"/>
+
+        <ImageButton
+            android:id="@+id/childrenButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Children"/>
+    </LinearLayout>
+</RelativeLayout>

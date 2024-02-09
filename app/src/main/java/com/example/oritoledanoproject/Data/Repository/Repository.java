@@ -23,4 +23,9 @@ public class Repository {
 
     public void deleteAllData() { myDatabaseHelper.deleteAllData(); }
 
+    public String getUserIDByName(String user) { return myDatabaseHelper.getUserIDByName(user);}
+    public String getUserEmailByName(String user) { return myDatabaseHelper.getUserIDByName(user);}
+
+
+
 }

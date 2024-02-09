@@ -127,6 +127,34 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return isUnique;
     }
 
+    public String getUserIDByName(String user)
+    {
+        boolean isUnique = false;
+        Cursor cursor = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT "+  COLUMN_ID +" FROM "+ TABLE_NAME + " WHERE " + COLUMN_USERNAME + " = '" + user + "'";
+
+        cursor = db.rawQuery(query, null);
+        if(cursor.getCount() == 1) {
+            cursor.moveToFirst();
+            return cursor.getString(0);
+        }
+        return null;
+    }
+
+    public String getUserEmailByName(String user)
+    {
+        boolean isUnique = false;
+        Cursor cursor = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT "+  COLUMN_EMAIL +" FROM "+ TABLE_NAME + " WHERE " + COLUMN_USERNAME + " = '" + user + "'";
+
+        cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        return cursor.getString(0);
+    }
+
     public boolean LoginUser(String user, String password, int EmailLogin)
     {
         boolean isExist = false;

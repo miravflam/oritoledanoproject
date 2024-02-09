@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.service.autofill.OnClickAction;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +19,7 @@ import com.example.oritoledanoproject.UI.Store.StoreActivity;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText etUser, etPass;
-
+    CheckBox cb;
     Button btnLogin;
     TextView tvReg;
     ModuleLogin moduleLogin;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvReg = findViewById(R.id.tvRegister);
         btnLogin.setOnClickListener(this);
         tvReg.setOnClickListener(this);
+        cb = findViewById(R.id.checkbox);
 
 
 
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (moduleLogin.isExist(etUser, etPass)) {
                 case 0: {
                     Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                    moduleLogin.SaveUser(etUser);
+                    moduleLogin.RememberMe(cb.isChecked());
                     startActivity(intent);
                     return;
                 }
