@@ -16,13 +16,13 @@
         android:src="@drawable/logo"
         android:background="@color/white"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         />
 
     <EditText
         android:id="@+id/editTextFullName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="366dp"
+        android:layout_height="44dp"
         android:hint="Full Name"
         android:inputType="textPersonName"
         android:backgroundTint="#D35229"
@@ -34,8 +34,8 @@
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="366dp"
+        android:layout_height="44dp"
         android:hint="Email"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
@@ -48,8 +48,8 @@
         android:id="@+id/editTextPassword"
         android:textColorHint="@color/white"
         android:textColor="#FFFFFF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="366dp"
+        android:layout_height="44dp"
         android:hint="Password"
         android:backgroundTint="#D35229"
         android:inputType="textPassword"
@@ -59,8 +59,8 @@
 
     <EditText
         android:id="@+id/editTextPasswordConfirmation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="366dp"
+        android:layout_height="44dp"
         android:textColorHint="@color/white"
         android:textColor="#FFFFFF"
         android:hint="Confirm Password"
@@ -71,27 +71,27 @@
 
     <EditText
         android:id="@+id/editTextPhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"
-        android:textColorHint="@color/white"
-        android:textColor="#FFFFFF"
-        android:inputType="phone"
+        android:layout_width="366dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="#D35229"
+        android:hint="Phone Number"
+        android:inputType="phone"
         android:padding="12dp"
-        android:layout_marginBottom="12dp"/>
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/editTextAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="@color/white"
-        android:textColor="#FFFFFF"
+        android:layout_width="366dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#D35229"
         android:hint="Address"
         android:inputType="textPostalAddress"
-        android:backgroundTint="#D35229"
         android:padding="12dp"
-        android:layout_marginBottom="8dp"/>
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/white" />
 
     <TextView
         android:id="@+id/tvLogin"
@@ -108,11 +108,11 @@
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:backgroundTint="#D35229"
-        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#D35229"
         android:padding="16dp"
-        android:layout_gravity="center_horizontal"/>
+        android:text="Register"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.oritoledanoproject.R;
@@ -12,6 +14,7 @@ public class StoreActivity extends AppCompatActivity {
 
 
     TextView tvName;
+    Button btnAddProduct;
 
     static String[] Credentials;
     ModuleStore moduleStore;
@@ -21,6 +24,7 @@ public class StoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_store);
 
         tvName = findViewById(R.id.userNameTextView);
+        btnAddProduct= findViewById(R.id.btnAddProduct);
 
         moduleStore = new ModuleStore(this);
 
@@ -32,6 +36,14 @@ public class StoreActivity extends AppCompatActivity {
         }
 
         tvName.setText(Credentials[0]);
+
+        btnAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAdd = new Intent(StoreActivity.this, newProduct.class);
+                startActivity(intentAdd);
+            }
+        });
 
 
 
