@@ -31,7 +31,7 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
 
     EditText EtInfo;
     ImageButton btnImg;
-    Button btnSend;
+    Button btnSend,btnBack;
     private Spinner fitSpinner, situationSpinner,categorySpinner;
     private static final String[] fits = {"מגדר ומידה", "גבר", "אישה", "ילד","ילדה","תינוק","תינוקת"};
     private static final String[] situation = {"מצב המוצר","חדש","כמו חדש","משומש"};
@@ -74,6 +74,9 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
 
         btnSend = findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
+
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(this);
 
         EtInfo=  findViewById(R.id.tvInfo);
 
@@ -151,6 +154,10 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
                 return;
             }
 
+        }
+        if (view ==btnBack){
+            Intent intentback = new Intent(newProduct.this,StoreActivity.class);
+            startActivity(intentback);
         }
 
     }
