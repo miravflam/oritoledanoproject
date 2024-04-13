@@ -19,7 +19,7 @@ public class Repository {
 
 
     public void addUserToFirebase(String name, String password, String email, String address, String phone) { myFirebaseHelper.addUser(name, password, email, address, phone);}
-    public void addProduct(String gender, String type, String situation, String description, Bitmap photo) { myFirebaseHelper.addProduct(gender, type, situation, description, photo); }
+    public void addProduct(String gender, String type, String situation, String description, String price, Bitmap photo) { myFirebaseHelper.addProduct(gender, type, situation, description, price,photo); }
     public void getProducts(FirebaseHelper.productsFetched callback) { myFirebaseHelper.getProducts(callback);}
 
     public void getUser(String email, String password,FirebaseHelper.UserFound callback) { myFirebaseHelper.getUser(email, password ,callback);}

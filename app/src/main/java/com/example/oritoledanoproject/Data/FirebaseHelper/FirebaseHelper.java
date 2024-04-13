@@ -1,21 +1,18 @@
 package com.example.oritoledanoproject.Data.FirebaseHelper;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.oritoledanoproject.Data.CurrentUser.CurrentUser;
+import com.example.oritoledanoproject.UI.Store.StoreActivity;
+import com.example.oritoledanoproject.UI.Store.newProduct;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,16 +24,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.rpc.Help;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class FirebaseHelper {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -56,16 +49,6 @@ public class FirebaseHelper {
     public interface Counter
     {
         void onCounted(int Amount);
-    }
-
-    public void CountUsers(Counter callback)
-    {
-        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                callback.onCounted(task.getResult().size());
-            }
-        });
     }
 
     LinkedList<Integer> currentUser = new LinkedList<>();
@@ -109,8 +92,12 @@ public class FirebaseHelper {
         CountProducts(new Counter() {
             @Override
             public void onCounted(int productsAmount) {
-
                 LinkedList<Map<String, Object>> productList = new LinkedList<>();
+                if(productsAmount == 0)
+                {
+                    callback.onProductsFetched(productList);
+                }
+
                 db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -135,6 +122,7 @@ public class FirebaseHelper {
                                                     product.put("gender", documentProduct.getData().get("gender"));
                                                     product.put("situation", documentProduct.getData().get("situation"));
                                                     product.put("type", documentProduct.getData().get("type"));
+                                                    product.put("price", documentProduct.getData().get("price"));
 
                                                     productList.add(product);
 
@@ -215,7 +203,7 @@ public class FirebaseHelper {
     }
 
 
-    public void addProduct(String gender, String type, String situation, String description, Bitmap photo) {
+    public void addProduct(String gender, String type, String situation, String description, String price ,Bitmap photo) {
         StorageReference ImageRef = storageRef.child("images/" + UUID.randomUUID());
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -232,6 +220,7 @@ public class FirebaseHelper {
                     product.put("type", type);
                     product.put("situation", situation);
                     product.put("description", description);
+                    product.put("price", price);
                     product.put("photoPath", ImageRef.getPath());
 
 
@@ -241,6 +230,8 @@ public class FirebaseHelper {
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             if(task.isSuccessful()) {
                                 Toast.makeText(context, "Added Successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(context, StoreActivity.class);
+                                startActivity(context,intent, null);
                             }
                             else Toast.makeText(context, "failed", Toast.LENGTH_SHORT).show();
                         }

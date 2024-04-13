@@ -35,7 +35,7 @@ import java.io.IOException;
 
 public class newProduct extends AppCompatActivity implements View.OnClickListener {
 
-    EditText EtInfo;
+    EditText EtInfo, etPrice;
     ImageView btnImg;
     Button btnSend,btnBack;
     ModuleProduct module;
@@ -107,6 +107,8 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
 
         EtInfo=  findViewById(R.id.tvInfo);
 
+        etPrice = findViewById(R.id.etPrice);
+
         //איך לגשת למה שבחרו
         //fitSpinner.getSelectedItem().toString()
 
@@ -170,9 +172,9 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
             }).show();
         }
         if (view == btnSend){
-           if(module.checkUps(fitSpinner.getSelectedItem().toString(), situationSpinner.getSelectedItem().toString(), categorySpinner.getSelectedItem().toString(), EtInfo.getText().toString(), btnImg))
+           if(module.checkUps(fitSpinner.getSelectedItem().toString(), situationSpinner.getSelectedItem().toString(), categorySpinner.getSelectedItem().toString(), EtInfo.getText().toString(), etPrice.getText().toString() ,btnImg))
            {
-               module.addProduct(fitSpinner.getSelectedItem().toString(), categorySpinner.getSelectedItem().toString(), situationSpinner.getSelectedItem().toString(), EtInfo.getText().toString(), photo);
+               module.addProduct(fitSpinner.getSelectedItem().toString(), categorySpinner.getSelectedItem().toString(), situationSpinner.getSelectedItem().toString(), EtInfo.getText().toString(), etPrice.getText().toString() ,photo);
            }
         }
         if (view ==btnBack){

@@ -19,7 +19,6 @@ public class ModuleRegister {
     }
 
     public void addUserToFirebase(String name, String password, String email, String address, String phone) { repository.addUserToFirebase(name, password, email, address, phone);}
-    public void addProduct(String gender, String type, String situation, String description, Bitmap photo) { repository.addProduct(gender, type, situation, description, photo); }
 
     public void emailIsExist(String email , FirebaseHelper.UserFetched callback) { repository.emailIsExist(email, callback); }
 

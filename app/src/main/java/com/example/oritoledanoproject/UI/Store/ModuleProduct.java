@@ -20,9 +20,9 @@ public class ModuleProduct {
         repository = new Repository(context);
     }
 
-    public void addProduct(String gender, String type, String situation, String description, Bitmap photo) { repository.addProduct(gender, type, situation, description, photo); }
+    public void addProduct(String gender, String type, String situation, String description, String price, Bitmap photo) { repository.addProduct(gender, type, situation, description, price ,photo); }
 
-    public boolean checkUps(String gender, String quality, String type, String description, ImageView imageView)
+    public boolean checkUps(String gender, String quality, String type, String description, String price ,ImageView imageView)
     {
 
         if(gender.equals("מגדר ומידה")){
@@ -43,11 +43,17 @@ public class ModuleProduct {
             Toast.makeText(context, "רשום תיאור", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if(price.isEmpty())
+        {
+            Toast.makeText(context, "רשום מחיר", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if(imageView.getTag().equals("NoPic"))
         {
             Toast.makeText(context, "תוסיף תמונה", Toast.LENGTH_SHORT).show();
             return false;
         }
+
         return true;
     }
 

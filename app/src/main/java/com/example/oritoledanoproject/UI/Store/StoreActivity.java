@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -37,7 +38,8 @@ public class StoreActivity extends AppCompatActivity {
     LinkedList<TableRow> rowList = new LinkedList<>();
     static String[] Credentials;
     ModuleStore moduleStore;
-
+    EditText etMax,etMin;
+    Button btnReset,btnFilter;
     private Spinner fitSpinner, situationSpinner,categorySpinner;
     private static final String[] fits = {"מגדר ומידה", "גבר", "אישה", "ילד","ילדה","תינוק","תינוקת"};
     private static final String[] situation = {"מצב המוצר","חדש","כמו חדש","משומש"};
@@ -95,7 +97,7 @@ public class StoreActivity extends AppCompatActivity {
                         if (childView instanceof TextView) {
                             TextView textView = (TextView) childView;
                             if(textView.getTag() != null &&textView.getTag().equals("genderView")) {
-                                if (textView.getText().toString().equals(fitSpinner.getSelectedItem())) {
+                                if (textView.getText().toString().contains(fitSpinner.getSelectedItem().toString())) {
                                     TableRow invisRow = new TableRow(getApplicationContext());
                                     TableRow.LayoutParams params2 = new TableRow.LayoutParams(
                                             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -168,7 +170,7 @@ public class StoreActivity extends AppCompatActivity {
                         if (childView instanceof TextView) {
                             TextView textView = (TextView) childView;
                             if(textView.getTag() != null &&textView.getTag().equals("situationView")) {
-                                if (textView.getText().toString().equals(situationSpinner.getSelectedItem())) {
+                                if (textView.getText().toString().contains(situationSpinner.getSelectedItem().toString())) {
                                     TableRow invisRow = new TableRow(getApplicationContext());
                                     TableRow.LayoutParams params2 = new TableRow.LayoutParams(
                                             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -240,7 +242,7 @@ public class StoreActivity extends AppCompatActivity {
                         if (childView instanceof TextView) {
                             TextView textView = (TextView) childView;
                             if(textView.getTag() != null &&textView.getTag().equals("typeView")) {
-                                if (textView.getText().toString().equals(categorySpinner.getSelectedItem())) {
+                                if (textView.getText().toString().contains(categorySpinner.getSelectedItem().toString())) {
                                     TableRow invisRow = new TableRow(getApplicationContext());
                                     TableRow.LayoutParams params2 = new TableRow.LayoutParams(
                                             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -279,6 +281,169 @@ public class StoreActivity extends AppCompatActivity {
                 pd.dismiss();
                 tvName = findViewById(R.id.userNameTextView);
                 btnAddProduct= findViewById(R.id.btnAddProduct);
+                etMax = findViewById(R.id.etMax);
+                etMin = findViewById(R.id.etMin);
+                btnReset = findViewById(R.id.btnReset);
+                btnFilter = findViewById(R.id.btnFilter);
+
+                btnReset.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tableLayout.removeAllViews();
+                        for (int i = 0; i < rowList.size(); i++) {
+                            TableRow invisRow = new TableRow(getApplicationContext());
+                            TableRow.LayoutParams params2 = new TableRow.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT);
+                            invisRow.setLayoutParams(params2);
+                            TextView invisImageView = new TextView(getBaseContext());
+                            invisImageView.setLayoutParams(new TableRow.LayoutParams(
+                                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                                    100,
+                                    0.25f));
+                            invisRow.addView(invisImageView);
+
+                            tableLayout.addView(rowList.get(i));
+                            tableLayout.addView(invisRow);
+                        }
+                        fitSpinner.setSelection(0);
+                        categorySpinner.setSelection(0);
+                        situationSpinner.setSelection(0);
+                        etMax.setText("");
+                        etMin.setText("");
+                    }
+                });
+
+
+                btnFilter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(etMax.getText().toString().isEmpty() && etMin.getText().toString().isEmpty())
+                        {
+                            tableLayout.removeAllViews();
+                            for (int i = 0; i < rowList.size(); i++) {
+                                TableRow invisRow = new TableRow(getApplicationContext());
+                                TableRow.LayoutParams params2 = new TableRow.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                                invisRow.setLayoutParams(params2);
+                                TextView invisImageView = new TextView(getBaseContext());
+                                invisImageView.setLayoutParams(new TableRow.LayoutParams(
+                                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                                        100,
+                                        0.25f));
+                                invisRow.addView(invisImageView);
+
+                                tableLayout.addView(rowList.get(i));
+                                tableLayout.addView(invisRow);
+                            }
+                            return;
+                        }
+                        if(etMax.getText().toString().equals(".") || etMin.getText().toString().equals("."))
+                        {
+                            Toast.makeText(StoreActivity.this, "invalid numbers", Toast.LENGTH_SHORT).show();
+                            etMin.setText("");
+                            etMax.setText("");
+                            return;
+                        }
+                        if(Double.parseDouble(etMax.getText().toString()) < Double.parseDouble(etMin.getText().toString()))
+                        {
+                            return;
+                        }
+                        if(!etMin.getText().toString().isEmpty() && !etMin.getText().toString().isEmpty())
+                        {
+                                tableLayout.removeAllViews();
+                                for (int i = 0; i < rowList.size(); i++) {
+                                    for (int j = 0; j < rowList.get(i).getChildCount(); j++) {
+                                        View childView = rowList.get(i).getChildAt(j);
+                                        if (childView instanceof TextView) {
+                                            TextView textView = (TextView) childView;
+                                            if (textView.getTag() != null && textView.getTag().equals("priceView")) {
+                                                double num = Double.parseDouble(textView.getText().toString().substring(textView.getText().toString().indexOf(" ")));
+                                                if (num <= Double.parseDouble(etMax.getText().toString()) && num >= Double.parseDouble(etMin.getText().toString())) {
+                                                    TableRow invisRow = new TableRow(getApplicationContext());
+                                                    TableRow.LayoutParams params2 = new TableRow.LayoutParams(
+                                                            ViewGroup.LayoutParams.MATCH_PARENT,
+                                                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                    invisRow.setLayoutParams(params2);
+                                                    TextView invisImageView = new TextView(getBaseContext());
+                                                    invisImageView.setLayoutParams(new TableRow.LayoutParams(
+                                                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                            100,
+                                                            0.25f));
+                                                    invisRow.addView(invisImageView);
+                                                    tableLayout.addView(rowList.get(i));
+                                                    tableLayout.addView(invisRow);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                        else if(etMax.getText().toString().isEmpty() && !etMin.getText().toString().isEmpty())
+                        {
+                                tableLayout.removeAllViews();
+                                for (int i = 0; i < rowList.size(); i++) {
+                                    for (int j = 0; j < rowList.get(i).getChildCount(); j++) {
+                                        View childView = rowList.get(i).getChildAt(j);
+                                        if (childView instanceof TextView) {
+                                            TextView textView = (TextView) childView;
+                                            if (textView.getTag() != null && textView.getTag().equals("priceView")) {
+                                                double num = Double.parseDouble(textView.getText().toString().substring(textView.getText().toString().indexOf(" ")));
+                                                if (num >= Double.parseDouble(etMin.getText().toString())) {
+                                                    TableRow invisRow = new TableRow(getApplicationContext());
+                                                    TableRow.LayoutParams params2 = new TableRow.LayoutParams(
+                                                            ViewGroup.LayoutParams.MATCH_PARENT,
+                                                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                    invisRow.setLayoutParams(params2);
+                                                    TextView invisImageView = new TextView(getBaseContext());
+                                                    invisImageView.setLayoutParams(new TableRow.LayoutParams(
+                                                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                            100,
+                                                            0.25f));
+                                                    invisRow.addView(invisImageView);
+                                                    tableLayout.addView(rowList.get(i));
+                                                    tableLayout.addView(invisRow);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                        else if(!etMax.getText().toString().isEmpty() && etMin.getText().toString().isEmpty()) {
+                                tableLayout.removeAllViews();
+                                for (int i = 0; i < rowList.size(); i++) {
+                                    for (int j = 0; j < rowList.get(i).getChildCount(); j++) {
+                                        View childView = rowList.get(i).getChildAt(j);
+                                        if (childView instanceof TextView) {
+                                            TextView textView = (TextView) childView;
+                                            if (textView.getTag() != null && textView.getTag().equals("priceView")) {
+                                                double num = Double.parseDouble(textView.getText().toString().substring(textView.getText().toString().indexOf(" ")));
+                                                if (num <= Double.parseDouble(etMax.getText().toString())) {
+                                                    TableRow invisRow = new TableRow(getApplicationContext());
+                                                    TableRow.LayoutParams params2 = new TableRow.LayoutParams(
+                                                            ViewGroup.LayoutParams.MATCH_PARENT,
+                                                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                    invisRow.setLayoutParams(params2);
+                                                    TextView invisImageView = new TextView(getBaseContext());
+                                                    invisImageView.setLayoutParams(new TableRow.LayoutParams(
+                                                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                            100,
+                                                            0.25f));
+                                                    invisRow.addView(invisImageView);
+                                                    tableLayout.addView(rowList.get(i));
+                                                    tableLayout.addView(invisRow);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                        } 
+
+
+
+                    }
+                });
 
                 if(moduleStore.DoesRemember() )
                     Credentials = moduleStore.getCredentials();
@@ -341,60 +506,67 @@ public class StoreActivity extends AppCompatActivity {
                                 400,
                                 0.25f));
 
+
+
                         // Create TextView for description
                         TextView descriptionTextView = new TextView(getBaseContext());
-                        descriptionTextView.setText(list.get(i).get("description").toString());
+                        descriptionTextView.setText("תיאור מוצר: ");
+                        descriptionTextView.append(list.get(i).get("description").toString() );
                         descriptionTextView.setTextSize(16);
                         descriptionTextView.setTextColor(getResources().getColor(android.R.color.black, null));
                         descriptionTextView.setLayoutParams(new TableRow.LayoutParams(
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                400,
+                                400,
                                 1f));
                         descriptionTextView.setTag("descriptionView");
 
 
                         // Create TextView for ID
                         TextView genderTextView = new TextView(getBaseContext());
-                        genderTextView.setText(list.get(i).get("gender").toString());
+                        genderTextView.setText("גזרה: ");
+                        genderTextView.append(list.get(i).get("gender").toString());
                         genderTextView.setTextSize(16);
                         genderTextView.setTextColor(getResources().getColor(android.R.color.black, null));
                         genderTextView.setLayoutParams(new TableRow.LayoutParams(
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                400,
+                                400,
                                 1f));
                         genderTextView.setTag("genderView");
 
 
                         TextView typeTextView = new TextView(getBaseContext());
-                        typeTextView.setText(list.get(i).get("type").toString());
+                        typeTextView.setText("סוג המוצר: ");
+                        typeTextView.append(list.get(i).get("type").toString());
                         typeTextView.setTextSize(16);
                         typeTextView.setTextColor(getResources().getColor(android.R.color.black, null));
                         typeTextView.setLayoutParams(new TableRow.LayoutParams(
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                400,
+                                400,
                                 1f));
                         typeTextView.setTag("typeView");
 
 
                         TextView situationTextView = new TextView(getBaseContext());
-                        situationTextView.setText(list.get(i).get("situation").toString());
+                        situationTextView.setText("מצב המוצר: ");
+                        situationTextView.append(list.get(i).get("situation").toString());
                         situationTextView.setTextSize(16);
                         situationTextView.setTextColor(getResources().getColor(android.R.color.black, null));
                         situationTextView.setLayoutParams(new TableRow.LayoutParams(
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                400,
+                                400,
                                 1f));
                         situationTextView.setTag("situationView");
 
-//                        TextView priceTextView = new TextView(getBaseContext());
-//                        priceTextView.setText(list.get(i).get("price").toString());
-//                        priceTextView.setTextSize(16);
-//                        priceTextView.setTextColor(getResources().getColor(android.R.color.black, null));
-//                        priceTextView.setLayoutParams(new TableRow.LayoutParams(
-//                                ViewGroup.LayoutParams.WRAP_CONTENT,
-//                                ViewGroup.LayoutParams.WRAP_CONTENT,
-//                                1f));
-
+                        TextView priceTextView = new TextView(getBaseContext());
+                        priceTextView.setText("מחיר: ");
+                        priceTextView.append(list.get(i).get("price").toString());
+                        priceTextView.setTextSize(16);
+                        priceTextView.setTextColor(getResources().getColor(android.R.color.black, null));
+                        priceTextView.setLayoutParams(new TableRow.LayoutParams(
+                                400,
+                                400,
+                                1f));
+                        priceTextView.setTag("priceView");
 
 
                         // add to TableRow
@@ -403,6 +575,7 @@ public class StoreActivity extends AppCompatActivity {
                         Row.addView(genderTextView);
                         Row.addView(typeTextView);
                         Row.addView(situationTextView);
+                        Row.addView(priceTextView);
                         tableLayout.addView(Row);
                         invisRow.addView(invisImageView);
                         tableLayout.addView(invisRow);
