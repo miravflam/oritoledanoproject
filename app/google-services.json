@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "814426565984",
+    "project_id": "oritoledanoproject",
+    "storage_bucket": "oritoledanoproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814426565984:android:965ad72fd56014f39ac205",
+        "android_client_info": {
+          "package_name": "com.example.oritoledanoproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjw4pEtC_KQB47ynK0lYXGxXa98D6UBSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

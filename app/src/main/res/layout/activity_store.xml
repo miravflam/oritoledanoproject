@@ -28,56 +28,74 @@
             android:text="add item"
             android:textColor="@color/black"></Button>
     </LinearLayout>
+ <HorizontalScrollView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@id/TopLay"
+     android:id="@+id/spinnerScroll">
 
-    <LinearLayout
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="69dp"
+         android:layout_marginBottom="20dp"
+         android:id="@+id/SpinnerLay"
+         >
+         <!-- User Info -->
+         <Spinner
 
+             android:id="@+id/fitsSpinner"
+             android:layout_width="wrap_content"
+             android:layout_height="61dp"
+             android:layout_marginTop="15dp"/>
+         <Spinner
+
+             android:id="@+id/typeSpinner"
+             android:layout_width="wrap_content"
+             android:layout_height="61dp"
+             android:layout_marginLeft="20dp"
+             android:layout_marginTop="15dp"/>
+         <Spinner
+
+             android:id="@+id/situationSpinner"
+             android:layout_width="wrap_content"
+             android:layout_marginLeft="20dp"
+             android:layout_height="61dp"
+             android:layout_marginTop="15dp"/>
+     </LinearLayout>
+ </HorizontalScrollView>
+
+
+    <ScrollView
+        android:layout_below="@id/spinnerScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/TopLay"
+        android:id="@+id/scrollView">
 
-        android:layout_marginTop="8dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" >
 
-
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- Category Buttons -->
-        <ImageButton
-            android:id="@+id/shirtsButton"
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tableLayout"
+            android:orientation="vertical">
 
-            android:contentDescription="Shirts" />
 
-        <ImageButton
-            android:id="@+id/pantsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Pants" />
 
-        <ImageButton
-            android:id="@+id/accessoriesButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Accessories" />
+        </TableLayout>
 
-        <ImageButton
-            android:id="@+id/skirtsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Skirts" />
 
-        <ImageButton
-            android:id="@+id/sweatshirtButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Sweatshirt" />
+        </HorizontalScrollView>
 
-        <ImageButton
-            android:id="@+id/childrenButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Children" />
-    </LinearLayout>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
 
 </RelativeLayout>

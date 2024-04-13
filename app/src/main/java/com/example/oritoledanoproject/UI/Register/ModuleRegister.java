@@ -1,8 +1,10 @@
 package com.example.oritoledanoproject.UI.Register;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.EditText;
 
+import com.example.oritoledanoproject.Data.FirebaseHelper.FirebaseHelper;
 import com.example.oritoledanoproject.Data.Repository.Repository;
 
 public class ModuleRegister {
@@ -15,6 +17,11 @@ public class ModuleRegister {
         this.context = context;
         repository = new Repository(context);
     }
+
+    public void addUserToFirebase(String name, String password, String email, String address, String phone) { repository.addUserToFirebase(name, password, email, address, phone);}
+    public void addProduct(String gender, String type, String situation, String description, Bitmap photo) { repository.addProduct(gender, type, situation, description, photo); }
+
+    public void emailIsExist(String email , FirebaseHelper.UserFetched callback) { repository.emailIsExist(email, callback); }
 
     public Boolean CheckUps(EditText etUser, EditText etEmail, EditText etPassword, EditText etPasswordConfirmation, EditText etPhone, EditText etAddress)
     {
@@ -75,11 +82,6 @@ public class ModuleRegister {
             etPassword.setError("Password Confirmation does not match");
             return false;
         }
-        if(!(repository.FindUser(etUser.getText().toString())))
-        {
-            etUser.setError("Username already exists");
-            return false;
-        }
 
         //phone validity checkups
         if(etPhone.getText().toString().isEmpty())
@@ -95,15 +97,6 @@ public class ModuleRegister {
             etAddress.setError("Fill Address");
             return false;
         }
-
-        repository.addUser(etUser.getText().toString(),etPassword.getText().toString(),etEmail.getText().toString(), etPhone.getText().toString(), etAddress.getText().toString());
-        etPassword.setText("");
-        etPasswordConfirmation.setText("");
-        etUser.setText("");
-        etEmail.setText("");
-        etPhone.setText("");
-        etAddress.setText("");
-
 
         return true;
     }

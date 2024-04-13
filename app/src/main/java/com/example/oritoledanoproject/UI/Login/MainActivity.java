@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.oritoledanoproject.Data.CurrentUser.CurrentUser;
+import com.example.oritoledanoproject.Data.FirebaseHelper.FirebaseHelper;
 import com.example.oritoledanoproject.R;
 import com.example.oritoledanoproject.UI.Register.RegisterActivity;
 import com.example.oritoledanoproject.UI.Store.StoreActivity;
@@ -27,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         moduleLogin = new ModuleLogin(this);
         etUser = findViewById(R.id.etUser);
         etPass = findViewById(R.id.etPassword);
@@ -52,26 +53,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(v == btnLogin) {
 
-            switch (moduleLogin.isExist(etUser, etPass)) {
-                case 0: {
-                    Intent intent = new Intent(MainActivity.this, StoreActivity.class);
-                    moduleLogin.SaveUser(etUser);
-                    moduleLogin.RememberMe(cb.isChecked());
-                    startActivity(intent);
-                    return;
-                }
-                case 1:
-                {
-                    etUser.setError("invalid username / password");
-                    return;
-                }
-                case 2:
-                {
-                    etUser.setError("invalid email / password");
-                    return;
-                }
-            }
-        }
+                        moduleLogin.getUser(etUser.getText().toString(), etPass.getText().toString(),new FirebaseHelper.UserFound() {
+                            @Override
+                            public void onUserFound() {
+                                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                                moduleLogin.RememberMe(cb.isChecked());
+                                startActivity(intent);
+                            }
+                        });
 
+
+
+
+
+        }
     }
+
 }

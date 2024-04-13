@@ -155,30 +155,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return cursor.getString(0);
     }
 
-    public boolean LoginUser(String user, String password, int EmailLogin)
+    public boolean LoginUser(String user, String password)
     {
         boolean isExist = false;
         Cursor cursor = null;
         SQLiteDatabase db = this.getWritableDatabase();
-        String query1 = "SELECT "+  COLUMN_USERNAME +" FROM "+ TABLE_NAME + " WHERE " + COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
         String query2 = "SELECT "+  COLUMN_EMAIL +" FROM "+ TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = ? AND " + COLUMN_PASSWORD + " = ?";
 
-        switch (EmailLogin) {
-        case 1: {
-            cursor = db.rawQuery(query1, new String[]{user, password});
-            isExist = cursor.getCount() == 1;
-            cursor.close();
-            return isExist;
-        }
-        case 2:
-        {
+
             cursor = db.rawQuery(query2, new String[]{user, password});
             isExist = cursor.getCount() == 1;
             cursor.close();
             return isExist;
-        }
-    }
-        return isExist;
+
+
 
     }
 

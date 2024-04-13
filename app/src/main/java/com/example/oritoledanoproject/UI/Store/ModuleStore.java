@@ -3,6 +3,7 @@ package com.example.oritoledanoproject.UI.Store;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.oritoledanoproject.Data.FirebaseHelper.FirebaseHelper;
 import com.example.oritoledanoproject.Data.Repository.Repository;
 import com.example.oritoledanoproject.R;
 
@@ -17,6 +18,7 @@ public class ModuleStore {
         sharedPreferences = context.getSharedPreferences("Main", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
+    public void getProducts(FirebaseHelper.productsFetched callback) { repository.getProducts(callback);}
 
     public void DoNotRemember()
     {

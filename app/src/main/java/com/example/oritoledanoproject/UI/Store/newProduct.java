@@ -3,6 +3,7 @@ package com.example.oritoledanoproject.UI.Store;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -20,18 +22,24 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.oritoledanoproject.R;
+import com.example.oritoledanoproject.UI.Login.MainActivity;
+
+import java.io.IOException;
 
 public class newProduct extends AppCompatActivity implements View.OnClickListener {
 
     EditText EtInfo;
-    ImageButton btnImg;
+    ImageView btnImg;
     Button btnSend,btnBack;
+    ModuleProduct module;
+    Bitmap photo;
     private Spinner fitSpinner, situationSpinner,categorySpinner;
     private static final String[] fits = {"מגדר ומידה", "גבר", "אישה", "ילד","ילדה","תינוק","תינוקת"};
     private static final String[] situation = {"מצב המוצר","חדש","כמו חדש","משומש"};
@@ -44,7 +52,8 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // There are no request codes
-                        Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
+                        photo = (Bitmap) result.getData().getExtras().get("data");
+                        btnImg.setTag("Pic");
                         btnImg.setImageBitmap(photo);
                     }
                     else Toast.makeText(newProduct.this, "cancelled", Toast.LENGTH_SHORT).show();
@@ -59,8 +68,25 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // There are no request codes
                         btnImg.setImageURI(result.getData().getData());
+                        btnImg.setTag("Pic");
                     }
                     else Toast.makeText(newProduct.this, "cancelled", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+    ActivityResultLauncher<PickVisualMediaRequest> OlderGalleryResultActivity =
+            registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                if (uri != null) {
+                    // There are no request codes
+                    btnImg.setImageURI(uri);
+                    btnImg.setTag("Pic");
+                    try {
+                        photo = Bitmap.createScaledBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), uri), 200, 200, false);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
                 }
             });
 
@@ -71,6 +97,7 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
 
         btnImg = findViewById(R.id.btnImg);
         btnImg.setOnClickListener(this);
+        btnImg.setTag("NoPic");
 
         btnSend = findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
@@ -111,7 +138,7 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
 
-
+        module = new ModuleProduct(this);
     }
 
     @Override
@@ -129,31 +156,24 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
             }).setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-                    GalleryActivityResultLauncher.launch(intent);
+                    Intent galleryIntent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+
+                    try {
+                        GalleryActivityResultLauncher.launch(galleryIntent);
+                    } catch (Exception e)
+                    {
+                        OlderGalleryResultActivity.launch(new PickVisualMediaRequest.Builder()
+                                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                                .build());
+                    }
                 }
             }).show();
         }
         if (view == btnSend){
-            if(fitSpinner.getSelectedItem().toString().equals("מגדר ומידה")){
-                Toast.makeText(this, "בחר מגדר ומידה", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if(situationSpinner.getSelectedItem().toString().equals("מצב המוצר")){
-                Toast.makeText(this, "בחר את מצב המוצר", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if(categorySpinner.getSelectedItem().toString().equals("סוג מוצר")){
-                Toast.makeText(this, "בחר את סוג מוצר", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (EtInfo.getText().toString().equals("")){
-                Toast.makeText(this, "רשום תיאור", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
+           if(module.checkUps(fitSpinner.getSelectedItem().toString(), situationSpinner.getSelectedItem().toString(), categorySpinner.getSelectedItem().toString(), EtInfo.getText().toString(), btnImg))
+           {
+               module.addProduct(fitSpinner.getSelectedItem().toString(), categorySpinner.getSelectedItem().toString(), situationSpinner.getSelectedItem().toString(), EtInfo.getText().toString(), photo);
+           }
         }
         if (view ==btnBack){
             Intent intentback = new Intent(newProduct.this,StoreActivity.class);

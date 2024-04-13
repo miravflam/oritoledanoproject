@@ -45,10 +45,10 @@
         android:textSize="25dp"
         android:hint="תיאור המוצר"></EditText>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/btnImg"
-        android:layout_width="163dp"
-        android:layout_height="75dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
         android:src="@drawable/camera" />

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.oritoledanoproject.Data.FirebaseHelper.FirebaseHelper;
 import com.example.oritoledanoproject.R;
 import com.example.oritoledanoproject.UI.Login.MainActivity;
 import com.example.oritoledanoproject.UI.Login.ModuleLogin;
@@ -56,9 +57,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (!moduleRegister.CheckUps(etUser, etEmail, etPass, etPassConfirm, etPhone, etAddress)) {
                 return;
             }
-            Intent intent = new Intent(RegisterActivity.this, StoreActivity.class);
-            startActivity(intent);
+            moduleRegister.emailIsExist(etEmail.getText().toString(), new FirebaseHelper.UserFetched() {
+                @Override
+                public void onUserFetched(boolean flag) {
+                    if(!flag){
+                    moduleRegister.addUserToFirebase(etUser.getText().toString(),etPass.getText().toString(), etEmail.getText().toString(), etAddress.getText().toString(), etPhone.getText().toString());
+                    etPass.setText("");
+                    etPassConfirm.setText("");
+                    etUser.setText("");
+                    etEmail.setText("");
+                    etPhone.setText("");
+                    etAddress.setText("");
 
+                    Intent intent = new Intent(RegisterActivity.this, StoreActivity.class);
+                    startActivity(intent);
+                    }
+                    else etEmail.setError("Email already exists");
+
+                }
+            });
         }
     }
 }
