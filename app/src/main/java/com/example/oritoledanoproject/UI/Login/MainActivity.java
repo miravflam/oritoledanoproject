@@ -2,6 +2,7 @@ package com.example.oritoledanoproject.UI.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.service.autofill.OnClickAction;
@@ -39,6 +40,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cb = findViewById(R.id.checkbox);
 
 
+        if (moduleLogin.CredentialsExist()){
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("logging in");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            moduleLogin.emailIsExist(moduleLogin.getSharedName(), new FirebaseHelper.UserFetched() {
+                @Override
+                public void onUserFetched(boolean flag) {
+                    if (flag) {
+                        moduleLogin.getUser(moduleLogin.getSharedName(), moduleLogin.getSharedPass(), new FirebaseHelper.UserFound() {
+                            @Override
+                            public void onUserFound() {
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    else {
+                        progressDialog.dismiss();
+                        Toast.makeText(MainActivity.this, "user not found", Toast.LENGTH_SHORT).show();
+                        moduleLogin.deleteData();
+                    }
+                }
+            });
+        }
+
+
 
     }
 
@@ -57,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onUserFound() {
                                 Intent intent = new Intent(MainActivity.this, StoreActivity.class);
-                                moduleLogin.RememberMe(cb.isChecked());
+                                moduleLogin.RememberMe(cb.isChecked(),etUser.getText().toString(),etPass.getText().toString());
+
                                 startActivity(intent);
                             }
                         });

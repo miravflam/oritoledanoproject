@@ -27,18 +27,32 @@ public class ModuleLogin {
     public void getUser(String email, String password,FirebaseHelper.UserFound callback) { repository.getUser(email,password,callback);}
 
 
-    public void RememberMe(boolean flag){
+    public void RememberMe(boolean flag,String email1, String pass){
         editor.putBoolean("Remember", flag);
+        if (flag){
+            editor.putString("useremail",email1);
+            editor.putString("userpass", pass);
+        }
         editor.apply();
     }
 
 
     public boolean CredentialsExist()
     {
-        return sharedPreferences.contains("username");
+        return sharedPreferences.contains("useremail") && !sharedPreferences.getString("useremail", "").isEmpty()&&sharedPreferences.contains("userpass") && !sharedPreferences.getString("userpass", "").isEmpty();
+    }
+    public void emailIsExist(String email , FirebaseHelper.UserFetched callback){
+        repository.emailIsExist(email,callback);
     }
 
-    public String getSharedName() { return sharedPreferences.getString("username", "");}
+    public String getSharedName() { return sharedPreferences.getString("useremail", "");}
+    public String getSharedPass() { return sharedPreferences.getString("userpass", "");}
+
+    public void deleteData(){
+            editor.remove("useremail");
+            editor.remove("userpass");
+            editor.remove("Remember");
+        editor.apply();}
 
 
 }

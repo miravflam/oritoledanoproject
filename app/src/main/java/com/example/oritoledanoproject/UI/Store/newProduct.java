@@ -69,6 +69,11 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
                         // There are no request codes
                         btnImg.setImageURI(result.getData().getData());
                         btnImg.setTag("Pic");
+                        try {
+                            photo = Bitmap.createScaledBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), result.getData().getData()), 200, 200, false);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else Toast.makeText(newProduct.this, "cancelled", Toast.LENGTH_SHORT).show();
                 }

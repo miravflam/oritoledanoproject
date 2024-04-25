@@ -24,6 +24,8 @@ import com.bumptech.glide.Glide;
 import com.example.oritoledanoproject.Data.CurrentUser.CurrentUser;
 import com.example.oritoledanoproject.Data.FirebaseHelper.FirebaseHelper;
 import com.example.oritoledanoproject.R;
+import com.example.oritoledanoproject.UI.Login.MainActivity;
+import com.example.oritoledanoproject.UI.Login.ModuleLogin;
 
 import java.util.InputMismatchException;
 import java.util.LinkedList;
@@ -33,7 +35,7 @@ public class StoreActivity extends AppCompatActivity {
 
 
     TextView tvName;
-    Button btnAddProduct;
+    Button btnAddProduct, btnlogout;
     TableLayout tableLayout;
     LinkedList<TableRow> rowList = new LinkedList<>();
     static String[] Credentials;
@@ -132,6 +134,19 @@ public class StoreActivity extends AppCompatActivity {
 
         situationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         situationSpinner.setAdapter(situationAdapter);
+
+        btnlogout = findViewById(R.id.btnlogout);
+        btnlogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (moduleStore.DoesRemember()) {
+                    moduleStore.DoNotRemember();
+                }
+                Intent intent = new Intent(StoreActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
 
         situationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

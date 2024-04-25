@@ -22,8 +22,8 @@ public class ModuleStore {
 
     public void DoNotRemember()
     {
-        editor.remove("username");
-        editor.remove("password");
+        editor.remove("useremail");
+        editor.remove("userpass");
         editor.remove("Remember");
         editor.apply();
     }
@@ -34,7 +34,6 @@ public class ModuleStore {
     }
 
     public String[] getCredentials() { return new String[]{sharedPreferences.getString("username", ""), sharedPreferences.getString("email", "")}; }
-
 
 
 }

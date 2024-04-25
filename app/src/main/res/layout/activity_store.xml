@@ -5,13 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".UI.Store.StoreActivity">
-
+<HorizontalScrollView
+    android:id="@+id/userSv"
+    android:layout_width="wrap_content"
+    android:layout_height="69dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="69dp"
         android:layout_marginBottom="20dp"
         android:id="@+id/TopLay">
         <!-- User Info -->
+
+
         <TextView
             android:id="@+id/userNameTextView"
             android:layout_width="wrap_content"
@@ -27,11 +32,20 @@
             android:layout_height="61dp"
             android:text="add item"
             android:textColor="@color/black"></Button>
+        <Button
+            android:id="@+id/btnlogout"
+            android:layout_width="175dp"
+            android:layout_height="61dp"
+            android:text="log out"
+            android:textColor="@color/black"></Button>
+
     </LinearLayout>
+</HorizontalScrollView>
+
  <HorizontalScrollView
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:layout_below="@id/TopLay"
+     android:layout_below="@id/userSv"
      android:id="@+id/spinnerScroll">
 
      <LinearLayout
