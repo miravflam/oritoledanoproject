@@ -1,6 +1,6 @@
 package com.example.oritoledanoproject.Data.CurrentUser;
 
-public class CurrentUser {
+public class   CurrentUser {
     static String name;
     static String email;
     static String fireID;

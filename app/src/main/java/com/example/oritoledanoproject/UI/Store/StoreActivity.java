@@ -2,6 +2,7 @@ package com.example.oritoledanoproject.UI.Store;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -26,6 +27,8 @@ import com.example.oritoledanoproject.Data.FirebaseHelper.FirebaseHelper;
 import com.example.oritoledanoproject.R;
 import com.example.oritoledanoproject.UI.Login.MainActivity;
 import com.example.oritoledanoproject.UI.Login.ModuleLogin;
+
+import org.w3c.dom.Text;
 
 import java.util.InputMismatchException;
 import java.util.LinkedList;
@@ -582,6 +585,34 @@ public class StoreActivity extends AppCompatActivity {
                                 400,
                                 1f));
                         priceTextView.setTag("priceView");
+
+                        final int currentIndex = i;
+                        Row.setClickable(true);
+                        Row.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Dialog dialog=new Dialog(StoreActivity.this);
+                                dialog.setContentView(R.layout.extra_info_dialog);
+                                TextView nameView = dialog.findViewById(R.id.tvname);
+                                TextView phoneView = dialog.findViewById(R.id.tvphone);
+                                TextView addressView = dialog.findViewById(R.id.tvadress);
+
+                                nameView.setText("שם : " + list.get(currentIndex).get("name").toString());
+                                phoneView.setText("טלפון : " + list.get(currentIndex).get("phone").toString());
+                                addressView.setText("כתובת : " + list.get(currentIndex).get("address").toString());
+                                Button btnClose = dialog.findViewById(R.id.btnclose);
+                                btnClose.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                dialog.setCancelable(false);
+                                dialog.show();
+
+                            }
+                        });
 
 
                         // add to TableRow

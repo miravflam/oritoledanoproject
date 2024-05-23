@@ -123,6 +123,9 @@ public class FirebaseHelper {
                                                     product.put("situation", documentProduct.getData().get("situation"));
                                                     product.put("type", documentProduct.getData().get("type"));
                                                     product.put("price", documentProduct.getData().get("price"));
+                                                    product.put("name", document.getData().get("name"));
+                                                    product.put("phone", document.getData().get("phone"));
+                                                    product.put("address", document.getData().get("address"));
 
                                                     productList.add(product);
 
