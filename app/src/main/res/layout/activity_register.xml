@@ -5,19 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@android:color/black"
+    android:background="#F5F5DC"
     tools:context=".UI.Register.RegisterActivity">
 
 
-
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/logo"
-        android:background="@color/white"
+        android:layout_width="106dp"
+        android:layout_height="96dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
-        />
+        android:background="@color/white"
+        android:src="@drawable/rewearlogo" />
 
     <EditText
         android:id="@+id/editTextFullName"
@@ -25,10 +23,10 @@
         android:layout_height="44dp"
         android:hint="Full Name"
         android:inputType="textPersonName"
-        android:backgroundTint="#D35229"
+        android:backgroundTint="#785043"
         android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="@color/white"
+        android:textColor="#785043"
+        android:textColorHint="#785043"
         android:maxLength="10"
         android:layout_marginBottom="12dp"/>
 
@@ -37,21 +35,21 @@
         android:layout_width="366dp"
         android:layout_height="44dp"
         android:hint="Email"
-        android:textColor="#FFFFFF"
-        android:textColorHint="@color/white"
+        android:textColorHint="#785043"
+        android:textColor="#785043"
+        android:backgroundTint="#785043"
         android:inputType="textEmailAddress"
-        android:backgroundTint="#D35229"
         android:padding="12dp"
         android:layout_marginBottom="12dp"/>
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:textColorHint="@color/white"
-        android:textColor="#FFFFFF"
+        android:textColorHint="#785043"
+        android:textColor="#785043"
         android:layout_width="366dp"
         android:layout_height="44dp"
         android:hint="Password"
-        android:backgroundTint="#D35229"
+        android:backgroundTint="#785043"
         android:inputType="textPassword"
 
         android:padding="12dp"
@@ -61,11 +59,11 @@
         android:id="@+id/editTextPasswordConfirmation"
         android:layout_width="366dp"
         android:layout_height="44dp"
-        android:textColorHint="@color/white"
-        android:textColor="#FFFFFF"
+        android:textColorHint="#785043"
+        android:textColor="#785043"
         android:hint="Confirm Password"
         android:inputType="textPassword"
-        android:backgroundTint="#D35229"
+        android:backgroundTint="#785043"
         android:padding="12dp"
         android:layout_marginBottom="12dp"/>
 
@@ -74,34 +72,34 @@
         android:layout_width="366dp"
         android:layout_height="44dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="#D35229"
+        android:backgroundTint="#785043"
         android:hint="Phone Number"
         android:inputType="phone"
         android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="@color/white" />
+        android:textColor="#785043"
+        android:textColorHint="#785043" />
 
     <EditText
         android:id="@+id/editTextAddress"
         android:layout_width="366dp"
         android:layout_height="44dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="#D35229"
+        android:backgroundTint="#785043"
         android:hint="Address"
         android:inputType="textPostalAddress"
         android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="@color/white" />
+        android:textColor="#785043"
+        android:textColorHint="#785043" />
 
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="have an account already? click here to Log In"
-        android:textColor="@color/white"
         android:layout_marginBottom="24dp"
         android:textSize="14dp"
         android:clickable="true"
+        android:textColor="#785043"
         />
 
     <Button
@@ -110,9 +108,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#D35229"
+        android:background="@drawable/rounded"
         android:padding="16dp"
         android:text="Register"
-        android:textColor="@android:color/white" />
+        android:textColor="#DCD2D2" />
 
 </LinearLayout>

@@ -5,15 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#000000"
+    android:background="#F5F5DC"
     tools:context=".UI.Login.MainActivity"
     >
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/logo"
-        android:background="@color/white"
+        android:src="@drawable/rewearlogo"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="32dp"
         />
@@ -23,9 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email or Username"
-        android:textColorHint="#FFA500"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#FFA500"
+        android:textColorHint="#785043"
+        android:textColor="#785043"
+        android:backgroundTint="#785043"
         android:padding="12dp"
         android:layout_marginBottom="16dp"/>
 
@@ -35,9 +34,9 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColorHint="#FFA500"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#FFA500"
+        android:textColorHint="#785043"
+        android:textColor="#785043"
+        android:backgroundTint="#785043"
         android:padding="12dp"
         android:layout_marginBottom="8dp"
         />
@@ -46,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remember me"
-        android:textColor="#FFFFFF"
+        android:textColor="#785043"
         android:id="@+id/checkbox"
         />
     <TextView
@@ -54,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="don't have an account already? click here to Register"
-        android:textColor="@color/white"
+        android:textColor="#785043"
         android:layout_marginBottom="24dp"
         android:textSize="14dp"
         android:clickable="true"
@@ -65,8 +64,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:textColor="#FFFFFF"
-        android:background="#FFA500"
+        android:textColor="#DCD2D2"
+        android:background="@drawable/rounded"
         android:padding="16dp"
         android:layout_marginBottom="16dp"/>
 

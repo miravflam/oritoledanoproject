@@ -4,8 +4,15 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="#F5F5DC"
     tools:context=".UI.Store.StoreActivity">
-<HorizontalScrollView
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/rewearlogo"></ImageView>
+
+    <HorizontalScrollView
     android:id="@+id/userSv"
     android:layout_width="wrap_content"
     android:layout_height="69dp">
@@ -28,16 +35,19 @@
         <!-- Categories -->
         <Button
             android:id="@+id/btnAddProduct"
-            android:layout_width="175dp"
+            android:layout_width="135dp"
             android:layout_height="61dp"
+            android:background="@drawable/rounded"
             android:text="add item"
-            android:textColor="@color/black"></Button>
+            android:textColor="#DCD2D2"></Button>
         <Button
             android:id="@+id/btnlogout"
-            android:layout_width="175dp"
+            android:background="@drawable/rounded"
+            android:layout_width="135dp"
+            android:layout_marginLeft="10dp"
             android:layout_height="61dp"
             android:text="log out"
-            android:textColor="@color/black"></Button>
+            android:textColor="#DCD2D2"></Button>
 
     </LinearLayout>
 </HorizontalScrollView>
@@ -61,7 +71,10 @@
              android:layout_height="wrap_content"
              android:text="אפס מיון"
              android:layout_marginTop="20dp"
-             android:layout_marginLeft="20dp"/>
+             android:layout_marginLeft="20dp"
+             android:textColor="#DCD2D2"
+             android:background="@drawable/rounded"
+          />
 
          <!-- User Info -->
          <Spinner
@@ -114,6 +127,8 @@
              android:layout_height="wrap_content"
              android:text="סנן מחיר"
              android:layout_marginTop="25dp"
+             android:background="@drawable/rounded"
+             android:textColor="#DCD2D2"
              android:layout_marginLeft="20dp"/>
 
      </LinearLayout>
