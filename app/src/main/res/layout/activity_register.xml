@@ -14,14 +14,14 @@
         android:layout_height="122dp"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
-        android:background="@color/white"
-        android:src="@drawable/logonew2" />
+        android:src="@drawable/newlogo2" />
 
     <EditText
         android:id="@+id/editTextFullName"
         android:layout_width="366dp"
         android:layout_height="44dp"
         android:hint="שם מלא"
+        android:gravity="right"
         android:inputType="textPersonName"
         android:backgroundTint="#785043"
         android:padding="12dp"
@@ -35,6 +35,7 @@
         android:layout_width="366dp"
         android:layout_height="44dp"
         android:hint="איימיל"
+        android:gravity="right"
         android:textColorHint="#785043"
         android:maxLength="30"
         android:textColor="#785043"

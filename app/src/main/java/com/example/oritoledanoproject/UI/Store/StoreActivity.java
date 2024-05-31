@@ -362,7 +362,7 @@ public class StoreActivity extends AppCompatActivity {
                         }
                         if(etMax.getText().toString().equals(".") || etMin.getText().toString().equals("."))
                         {
-                            Toast.makeText(StoreActivity.this, "invalid numbers", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StoreActivity.this, "מספרים שגויים", Toast.LENGTH_SHORT).show();
                             etMin.setText("");
                             etMax.setText("");
                             return;

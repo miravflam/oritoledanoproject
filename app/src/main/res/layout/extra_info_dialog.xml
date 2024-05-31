@@ -1,34 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/newlogo2"
+   >
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="285dp"
         android:layout_height="wrap_content"
-        android:id="@+id/tvname"
-        android:text="שם: "
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded"
+        android:gravity="center"
+        android:textColor="#F5F5DC"
+        android:text="דרכי התקשרות"
+        android:textSize="30sp"
+        />
 
-        ></TextView>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/tvphone"
-        android:text="טלפון: "
-
-        ></TextView>
-    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvadress"
-        android:text="כתובת: "
+        android:layout_height="88dp"
+        android:text="טלפון: "
+        android:textColor="#000000"
+        android:background="#4D000000"
+        android:textSize="25dp" />
 
-        ></TextView>
+    <TextView
+        android:id="@+id/tvname"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:text="שם: "
+        android:textSize="25dp"
+        android:textColor="#000000"
+        android:background="#4D000000"
+
+        />
+
+    <TextView
+        android:id="@+id/tvadress"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:text="כתובת: "
+        android:textSize="25dp"
+        android:textColor="#000000"
+        android:background="#4D000000"
+
+
+
+        />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/btnclose"
-        />
+        android:layout_width="180dp"
+        android:layout_height="66dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded"
+        android:gravity="center"
+        android:text="חזור"
+        android:textColor="#F5F5DC"
+        android:textSize="25dp" />
 </LinearLayout>
