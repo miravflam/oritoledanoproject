@@ -4,22 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5DC"
     tools:context=".UI.Store.newProduct"
     android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
 
             <TextView
-                android:text="add prouduct"
+                android:text="הוספת מוצר"
                 android:textSize="50dp"
                 android:layout_gravity="center"
+                android:textColorHint="#785043"
+                android:textColor="#785043"
+                android:backgroundTint="#785043"
                 android:layout_width="295dp"
                 android:layout_height="71dp">
 
@@ -30,10 +34,16 @@
                 android:id="@+id/fitsSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
+                android:textColorHint="#785043"
+                android:textColor="#785043"
+                android:backgroundTint="#785043"
                 android:layout_marginTop="15dp"/>
 
             <Spinner
                 android:id="@+id/situationSpinner"
+                android:textColorHint="#785043"
+                android:textColor="#785043"
+                android:backgroundTint="#785043"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 android:layout_marginTop="15dp"/>
@@ -42,6 +52,9 @@
                 android:id="@+id/categorySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:textColorHint="#785043"
+                android:textColor="#785043"
+                android:backgroundTint="#785043"
                 android:layout_marginTop="15dp"/>
 
             <EditText
@@ -50,8 +63,12 @@
                 android:layout_width="339dp"
                 android:layout_height="86dp"
                 android:layout_gravity="center"
+                android:textColorHint="#785043"
+                android:textColor="#785043"
+                android:backgroundTint="#785043"
                 android:gravity="center"
                 android:textSize="25dp"
+                android:maxLength="100"
                 android:hint="תיאור המוצר"></EditText>
             <EditText
                 android:id="@+id/etPrice"
@@ -60,6 +77,9 @@
                 android:layout_height="86dp"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textColorHint="#785043"
+                android:textColor="#785043"
+                android:backgroundTint="#785043"
                 android:textSize="25dp"
                 android:inputType="numberDecimal"
                 android:hint="מחיר המוצר"></EditText>
@@ -70,7 +90,9 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
+
                 android:src="@drawable/camera" />
+
 
             <Button
                 android:id="@+id/btnSend"
@@ -79,15 +101,21 @@
                 android:layout_height="58dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:text="send"></Button>
+                android:textColor="#ECE7E5"
+                android:background="@drawable/rounded"
+                android:text="שלח"></Button>
 
             <Button
                 android:id="@+id/btnBack"
                 android:layout_width="145dp"
                 android:layout_height="58dp"
-                android:layout_gravity="left"
+                android:layout_gravity="center"
                 android:layout_marginTop="25dp"
-                android:text="return"
+                android:background="@drawable/rounded"
+                android:gravity="center"
+                android:text="בטל"
+                android:textColor="#ECE7E5"
+                android:textColorHint="#785043"
                 android:textSize="25dp"></Button>
 
 

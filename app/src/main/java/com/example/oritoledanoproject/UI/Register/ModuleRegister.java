@@ -27,39 +27,39 @@ public class ModuleRegister {
         // username validity checkups
         if(etUser.getText().toString().isEmpty())
         {
-            etUser.setError("Fill Username");
+            etUser.setError("מלא שם משתמש");
             return false;
         }
         if(etUser.getText().toString().length() < 3)
         {
-            etUser.setError("Username must be over 3 characters");
+            etUser.setError("השם חייב להיות מעל שלוש תווים");
             return false;
         }
 
         // email validity checkups
         if(etEmail.getText().toString().indexOf("@") <= 1)
         {
-            etEmail.setError("invalid email (x@)");
+            etEmail.setError("אימייל חייב להכיל שטרודל");
             return false;
         }
         if(etEmail.getText().toString().indexOf("@") != etEmail.getText().toString().lastIndexOf("@"))
         {
-            etEmail.setError("invalid email (@@)");
+            etEmail.setError("איימיל לא תקין");
             return false;
         }
         if(etEmail.getText().toString().indexOf(".") - etEmail.getText().toString().indexOf("@") <= 3)
         {
-            etEmail.setError("invalid email (.@)");
+            etEmail.setError("איימיל לא תקין");
             return false;
         }
         if(etEmail.getText().toString().indexOf(".") != etEmail.getText().toString().lastIndexOf("."))
         {
-            etEmail.setError("invalid email (..)");
+            etEmail.setError("איימיל לא תקין");
             return false;
         }
         if(!(etEmail.getText().toString().contains(".com")) && !(etEmail.getText().toString().contains(".co.")))
         {
-            etEmail.setError("invalid email (.com/.co)");
+            etEmail.setError("איימיל לא תקין");
             return false;
         }
 
@@ -68,24 +68,24 @@ public class ModuleRegister {
         //password validity checkups
         if(etPassword.getText().toString().equals(""))
         {
-            etPassword.setError("Fill Password");
+            etPassword.setError("מלא סיסמה");
             return false;
         }
         if(etPassword.getText().toString().length() < 3)
         {
-            etPassword.setError("Password isn't strong enough");
+            etPassword.setError("סיסמא לא חזקה מספיק ");
             return false;
         }
         if(!(etPassword.getText().toString().equals(etPasswordConfirmation.getText().toString())))
         {
-            etPassword.setError("Password Confirmation does not match");
+            etPassword.setError("אישור הסיסמא לא תואם לסיסמא");
             return false;
         }
 
         //phone validity checkups
         if(etPhone.getText().toString().isEmpty())
         {
-            etPhone.setError("Fill Phone");
+            etPhone.setError("מלא טלפון");
             return false;
         }
 
@@ -93,7 +93,7 @@ public class ModuleRegister {
         //address validity checkups
         if(etAddress.getText().toString().isEmpty())
         {
-            etAddress.setError("Fill Address");
+            etAddress.setError("מלא כתובת");
             return false;
         }
 

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (moduleLogin.CredentialsExist()){
             ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("logging in");
+            progressDialog.setTitle("מתחבר");
             progressDialog.setCancelable(false);
             progressDialog.show();
             moduleLogin.emailIsExist(moduleLogin.getSharedName(), new FirebaseHelper.UserFetched() {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     else {
                         progressDialog.dismiss();
-                        Toast.makeText(MainActivity.this, "user not found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "המשתמש לא נמצא", Toast.LENGTH_SHORT).show();
                         moduleLogin.deleteData();
                     }
                 }

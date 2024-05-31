@@ -175,7 +175,7 @@ public class FirebaseHelper {
                 }
                 if(!flag)
                 {
-                Toast.makeText(context, "User not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "המשתמש לא נמצא", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -232,11 +232,11 @@ public class FirebaseHelper {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             if(task.isSuccessful()) {
-                                Toast.makeText(context, "Added Successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "הוסף בהצלחה", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(context, StoreActivity.class);
                                 startActivity(context,intent, null);
                             }
-                            else Toast.makeText(context, "failed", Toast.LENGTH_SHORT).show();
+                            else Toast.makeText(context, "התמונה לא עלתה", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

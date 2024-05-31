@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorSpace;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -498,6 +501,8 @@ public class StoreActivity extends AppCompatActivity {
 
 
                         TableRow Row = new TableRow(getApplicationContext());
+                        Row.setBackgroundColor(Color.argb(80, 169, 169, 169));
+
                         TableRow.LayoutParams params = new TableRow.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT);

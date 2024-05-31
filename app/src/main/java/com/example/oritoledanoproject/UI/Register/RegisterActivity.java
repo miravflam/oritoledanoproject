@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Intent intent = new Intent(RegisterActivity.this, StoreActivity.class);
                     startActivity(intent);
                     }
-                    else etEmail.setError("Email already exists");
+                    else etEmail.setError("האיימיל קיים כבר במערכת");
 
                 }
             });

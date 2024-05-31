@@ -15,6 +15,7 @@
     <HorizontalScrollView
     android:id="@+id/userSv"
     android:layout_width="wrap_content"
+        android:layoutDirection="ltr"
     android:layout_height="69dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +39,7 @@
             android:layout_width="135dp"
             android:layout_height="61dp"
             android:background="@drawable/rounded"
-            android:text="add item"
+            android:text="הוסף מוצר"
             android:textColor="#DCD2D2"></Button>
         <Button
             android:id="@+id/btnlogout"
@@ -46,7 +47,7 @@
             android:layout_width="135dp"
             android:layout_marginLeft="10dp"
             android:layout_height="61dp"
-            android:text="log out"
+            android:text="התנתק"
             android:textColor="#DCD2D2"></Button>
 
     </LinearLayout>

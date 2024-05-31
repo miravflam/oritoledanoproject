@@ -56,7 +56,7 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
                         btnImg.setTag("Pic");
                         btnImg.setImageBitmap(photo);
                     }
-                    else Toast.makeText(newProduct.this, "cancelled", Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(newProduct.this, "בוטל", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -75,7 +75,7 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
                             throw new RuntimeException(e);
                         }
                     }
-                    else Toast.makeText(newProduct.this, "cancelled", Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(newProduct.this, "בוטל", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -153,14 +153,14 @@ public class newProduct extends AppCompatActivity implements View.OnClickListene
         if(view == btnImg)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("which");
-            builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+            builder.setTitle("איך תעדיף לעלות את התמונה");
+            builder.setPositiveButton("מצלמה", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     someActivityResultLauncher.launch(intent);
                 }
-            }).setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+            }).setNegativeButton("גלריה", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Intent galleryIntent = new Intent(MediaStore.ACTION_PICK_IMAGES);
