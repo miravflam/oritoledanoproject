@@ -16,43 +16,53 @@ public class ModuleLogin {
     SharedPreferences.Editor editor;
     Context context;
 
-    public ModuleLogin(Context context)
-    {
+    public ModuleLogin(Context context) {
         repository = new Repository(context);
         sharedPreferences = context.getSharedPreferences("Main", Context.MODE_PRIVATE);
         this.context = context;
         editor = sharedPreferences.edit();
     }
 
-    public void getUser(String email, String password,FirebaseHelper.UserFound callback) { repository.getUser(email,password,callback);}
+    // פונקציה לקבלת משתמש ממסד הנתונים
+    public void getUser(String email, String password, FirebaseHelper.UserFound callback) {
+        repository.getUser(email, password, callback);
+    }
 
-
-    public void RememberMe(boolean flag,String email1, String pass){
+    // פונקציה לשמירת משתמש וסיסמה במכשיר
+    public void RememberMe(boolean flag, String email1, String pass) {
         editor.putBoolean("Remember", flag);
-        if (flag){
-            editor.putString("useremail",email1);
+        if (flag) {
+            editor.putString("useremail", email1);
             editor.putString("userpass", pass);
         }
         editor.apply();
     }
 
-
-    public boolean CredentialsExist()
-    {
-        return sharedPreferences.contains("useremail") && !sharedPreferences.getString("useremail", "").isEmpty()&&sharedPreferences.contains("userpass") && !sharedPreferences.getString("userpass", "").isEmpty();
-    }
-    public void emailIsExist(String email , FirebaseHelper.UserFetched callback){
-        repository.emailIsExist(email,callback);
+    // פונקציה לבדיקת קיומם של נתוני התחברות זכורים במכשיר
+    public boolean CredentialsExist() {
+        return sharedPreferences.contains("useremail") && !sharedPreferences.getString("useremail", "").isEmpty() && sharedPreferences.contains("userpass") && !sharedPreferences.getString("userpass", "").isEmpty();
     }
 
-    public String getSharedName() { return sharedPreferences.getString("useremail", "");}
-    public String getSharedPass() { return sharedPreferences.getString("userpass", "");}
+    // פונקציה לבדיקת קיומו של כתובת האימייל במסד הנתונים של Firebase
+    public void emailIsExist(String email, FirebaseHelper.UserFetched callback) {
+        repository.emailIsExist(email, callback);
+    }
 
-    public void deleteData(){
-            editor.remove("useremail");
-            editor.remove("userpass");
-            editor.remove("Remember");
-        editor.apply();}
+    // פונקציה לקבלת כתובת האימייל השמורה
+    public String getSharedName() {
+        return sharedPreferences.getString("useremail", "");
+    }
 
+    // פונקציה לקבלת הסיסמה השמורה
+    public String getSharedPass() {
+        return sharedPreferences.getString("userpass", "");
+    }
 
+    // פונקציה למחיקת נתוני התחברות מהמכשיר
+    public void deleteData() {
+        editor.remove("useremail");
+        editor.remove("userpass");
+        editor.remove("Remember");
+        editor.apply();
+    }
 }

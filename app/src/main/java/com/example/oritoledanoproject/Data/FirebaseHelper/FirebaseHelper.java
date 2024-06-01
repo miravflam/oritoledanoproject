@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class FirebaseHelper {
+    // משתנים עבור Firestore ו-Firebase Storage
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
@@ -42,81 +43,78 @@ public class FirebaseHelper {
         this.context = context;
     }
 
-    public interface productsFetched
-    {
+    public interface productsFetched {
         void onProductsFetched(LinkedList<Map<String, Object>> list);
     }
-    public interface Counter
-    {
+
+    // ממשק להחזרת כמות מוצרים
+    public interface Counter {
         void onCounted(int Amount);
     }
 
     LinkedList<Integer> currentUser = new LinkedList<>();
-    public void CountProducts(Counter callback)
-    {
+
+    // פונקציה לספירת מוצרים
+    public void CountProducts(Counter callback) {
+        // קבלת רשימת המשתמשים מהמסד נתונים
         db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> taskUsers) {
-
                 int totalUsers = taskUsers.getResult().size();
-                for (DocumentSnapshot document : taskUsers.getResult())
-                {
+                for (DocumentSnapshot document : taskUsers.getResult()) {
+                    // קבלת רשימת המוצרים של כל משתמש
                     db.collection("users").document(document.getId()).collection("products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful())
-                            {
+                            if (task.isSuccessful()) {
                                 currentUser.add(task.getResult().size());
-                                String num1 =String.valueOf(totalUsers);
+                                String num1 = String.valueOf(totalUsers);
                                 String num2 = String.valueOf(currentUser.size());
-                                if(num1.equals(num2))
-                                {
+                                // בדיקה אם כל המשתמשים נבדקו
+                                if (num1.equals(num2)) {
                                     int total = 0;
+                                    // חישוב סך כל המוצרים
                                     for (int i = 0; i < currentUser.size(); i++) {
                                         total += currentUser.get(i);
                                     }
                                     callback.onCounted(total);
                                 }
-
                             }
                         }
                     });
                 }
-
             }
         });
     }
 
-    public void getProducts(productsFetched callback)
-    {
+    public void getProducts(productsFetched callback) {
         CountProducts(new Counter() {
             @Override
             public void onCounted(int productsAmount) {
                 LinkedList<Map<String, Object>> productList = new LinkedList<>();
-                if(productsAmount == 0)
-                {
+                // אם אין מוצרים
+                if (productsAmount == 0) {
                     callback.onProductsFetched(productList);
                 }
 
+                // קבלת רשימת המשתמשים
                 db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        for (DocumentSnapshot document : task.getResult())
-                        {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            // קבלת רשימת המוצרים של כל משתמש
                             db.collection("users").document(document.getId()).collection("products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if(task.isSuccessful())
-                                    {
-                                        for (DocumentSnapshot documentProduct : task.getResult())
-                                        {
+                                    if (task.isSuccessful()) {
+                                        for (DocumentSnapshot documentProduct : task.getResult()) {
                                             Map<String, Object> product = new HashMap<>();
-
+                                            // קבלת כתובת התמונה מהמוצר
                                             StorageReference reportImageRef = storage.getReferenceFromUrl("gs://oritoledanoproject.appspot.com" + documentProduct.getData().get("photoPath").toString());
                                             reportImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                 @Override
                                                 public void onSuccess(Uri uri) {
+                                                    // הוספת פרטי המוצר למפה
                                                     product.put("picture", uri);
                                                     product.put("description", documentProduct.getData().get("description"));
                                                     product.put("gender", documentProduct.getData().get("gender"));
@@ -129,84 +127,75 @@ public class FirebaseHelper {
 
                                                     productList.add(product);
 
-                                                    if(productList.size() == productsAmount)
-                                                    {
+                                                    // בדיקה אם כל המוצרים נוספו לרשימה
+                                                    if (productList.size() == productsAmount) {
                                                         callback.onProductsFetched(productList);
                                                     }
                                                 }
-
                                             });
                                         }
-
                                     }
                                 }
                             });
                         }
-
                     }
                 });
-
-
             }
         });
     }
 
-
-
-    public interface UserFound
-    {
+    // ממשק להחזרת משתמש נמצא
+    public interface UserFound {
         void onUserFound();
     }
 
-    public void getUser(String email, String password ,UserFound callback)
-    {
+    // פונקציה לקבלת משתמש לפי אימייל וסיסמה
+    public void getUser(String email, String password, UserFound callback) {
         db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 boolean flag = false;
-                for(DocumentSnapshot documentSnapshot : task.getResult())
-                {
-                    if(documentSnapshot.getData().get("email").toString().equals(email) && documentSnapshot.getData().get("password").toString().equals(password))
-                    {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    // בדיקה אם האימייל והסיסמה תואמים
+                    if (documentSnapshot.getData().get("email").toString().equals(email) && documentSnapshot.getData().get("password").toString().equals(password)) {
+                        // אתחול המשתמש הנוכחי
                         CurrentUser.initializeUser(documentSnapshot.getData().get("name").toString(), documentSnapshot.getData().get("email").toString(), documentSnapshot.getId());
                         callback.onUserFound();
                         flag = true;
                     }
                 }
-                if(!flag)
-                {
-                Toast.makeText(context, "המשתמש לא נמצא", Toast.LENGTH_SHORT).show();
+                // אם המשתמש לא נמצא
+                if (!flag) {
+                    Toast.makeText(context, "איימיל או סיסמא לא נכונים", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    public interface UserFetched
-    {
+    // ממשק להחזרת אימייל קיים
+    public interface UserFetched {
         void onUserFetched(boolean flag);
     }
-    public void emailIsExist(String email ,UserFetched callback)
-    {
+
+    // פונקציה לבדוק אם אימייל קיים
+    public void emailIsExist(String email, UserFetched callback) {
         db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 boolean emailFound = false;
-                for(DocumentSnapshot documentSnapshot : task.getResult())
-                {
-                    if(documentSnapshot.getData().get("email").toString().equals(email))
-                    {
+                for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                    // בדיקה אם האימייל קיים
+                    if (documentSnapshot.getData().get("email").toString().equals(email)) {
                         emailFound = true;
                     }
                 }
-
                 callback.onUserFetched(emailFound);
             }
         });
-
     }
 
-
-    public void addProduct(String gender, String type, String situation, String description, String price ,Bitmap photo) {
+    // פונקציה להוספת מוצר
+    public void addProduct(String gender, String type, String situation, String description, String price, Bitmap photo) {
         StorageReference ImageRef = storageRef.child("images/" + UUID.randomUUID());
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -216,8 +205,7 @@ public class FirebaseHelper {
         ImageRef.putBytes(data).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     Map<String, Object> product = new HashMap<>();
                     product.put("gender", gender);
                     product.put("type", type);
@@ -226,17 +214,17 @@ public class FirebaseHelper {
                     product.put("price", price);
                     product.put("photoPath", ImageRef.getPath());
 
-
-
+                    // הוספת המוצר למסד הנתונים של המשתמש הנוכחי
                     db.collection("users").document(CurrentUser.getFireID()).collection("products").add(product).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
-                            if(task.isSuccessful()) {
+                            if (task.isSuccessful()) {
                                 Toast.makeText(context, "הוסף בהצלחה", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(context, StoreActivity.class);
-                                startActivity(context,intent, null);
+                                startActivity(context, intent, null);
+                            } else {
+                                Toast.makeText(context, "התמונה לא עלתה", Toast.LENGTH_SHORT).show();
                             }
-                            else Toast.makeText(context, "התמונה לא עלתה", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -244,7 +232,7 @@ public class FirebaseHelper {
         });
     }
 
-
+    // פונקציה להוספת משתמש
     public void addUser(String name, String password, String email, String address, String phone) {
         Map<String, Object> user = new HashMap<>();
         user.put("name", name);
@@ -253,13 +241,13 @@ public class FirebaseHelper {
         user.put("address", address);
         user.put("phone", phone);
 
-
-// Add a new document with a generated ID
+        // הוספת משתמש חדש עם מזהה שנוצר
         db.collection("users")
                 .add(user)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        // אתחול המשתמש הנוכחי
                         CurrentUser.initializeUser(name, email, documentReference.getId());
                     }
                 })
@@ -269,6 +257,5 @@ public class FirebaseHelper {
                     }
                 });
     }
-
 
 }

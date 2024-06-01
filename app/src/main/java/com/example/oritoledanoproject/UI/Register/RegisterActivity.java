@@ -18,7 +18,6 @@ import com.example.oritoledanoproject.UI.Store.StoreActivity;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     ModuleRegister moduleRegister;
     EditText etUser, etPass, etPassConfirm, etEmail, etAddress, etPhone;
     Button btnRegister;
@@ -45,35 +44,42 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v == tvLogin)
-        {
+        // בדיקה אם הכפתור שנלחץ הוא כפתור הכניסה
+        if (v == tvLogin) {
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(intent);
         }
 
-        if(v == btnRegister) {
-
-
+        // בדיקה אם הכפתור שנלחץ הוא כפתור ההרשמה
+        if (v == btnRegister) {
+            // בדיקת תקינות כל השדות בטופס ההרשמה
             if (!moduleRegister.CheckUps(etUser, etEmail, etPass, etPassConfirm, etPhone, etAddress)) {
                 return;
             }
+
+            // בדיקה אם האימייל קיים במערכת
             moduleRegister.emailIsExist(etEmail.getText().toString(), new FirebaseHelper.UserFetched() {
                 @Override
                 public void onUserFetched(boolean flag) {
-                    if(!flag){
-                    moduleRegister.addUserToFirebase(etUser.getText().toString(),etPass.getText().toString(), etEmail.getText().toString(), etAddress.getText().toString(), etPhone.getText().toString());
-                    etPass.setText("");
-                    etPassConfirm.setText("");
-                    etUser.setText("");
-                    etEmail.setText("");
-                    etPhone.setText("");
-                    etAddress.setText("");
+                    if (!flag) {
+                        // הוספת המשתמש החדש לפיירבייס
+                        moduleRegister.addUserToFirebase(etUser.getText().toString(), etPass.getText().toString(), etEmail.getText().toString(), etAddress.getText().toString(), etPhone.getText().toString());
 
-                    Intent intent = new Intent(RegisterActivity.this, StoreActivity.class);
-                    startActivity(intent);
+                        // איפוס כל שדות הטופס
+                        etPass.setText("");
+                        etPassConfirm.setText("");
+                        etUser.setText("");
+                        etEmail.setText("");
+                        etPhone.setText("");
+                        etAddress.setText("");
+
+                        // מעבר לפעילות החנות (StoreActivity)
+                        Intent intent = new Intent(RegisterActivity.this, StoreActivity.class);
+                        startActivity(intent);
+                    } else {
+                        // הצגת שגיאה אם האימייל כבר קיים במערכת
+                        etEmail.setError("האיימיל קיים כבר במערכת");
                     }
-                    else etEmail.setError("האיימיל קיים כבר במערכת");
-
                 }
             });
         }

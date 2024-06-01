@@ -12,28 +12,36 @@ public class ModuleStore {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    public ModuleStore(Context context)
-    {
+    // בנאי שמאתחל את מחסן הנתונים (repository) ואת SharedPreferences
+    public ModuleStore(Context context) {
         repository = new Repository(context);
         sharedPreferences = context.getSharedPreferences("Main", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
-    public void getProducts(FirebaseHelper.productsFetched callback) { repository.getProducts(callback);}
 
-    public void DoNotRemember()
-    {
+    // משיג מוצרים מהמחסן דרך ה-Firebase
+    public void getProducts(FirebaseHelper.productsFetched callback) {
+        repository.getProducts(callback);
+    }
+
+    // מסיר את המידע של המשתמש מ-SharedPreferences (משתמש לא רוצה להיזכר)
+    public void DoNotRemember() {
         editor.remove("useremail");
         editor.remove("userpass");
         editor.remove("Remember");
         editor.apply();
     }
 
-    public boolean DoesRemember()
-    {
+    //sharedPreferencesזוכר את המשתמש ב
+    public boolean DoesRemember() {
         return sharedPreferences.getBoolean("Remember", false);
     }
 
-    public String[] getCredentials() { return new String[]{sharedPreferences.getString("username", ""), sharedPreferences.getString("email", "")}; }
-
-
+    // מחזיר את המשתמש
+    public String[] getCredentials() {
+        return new String[]{
+                sharedPreferences.getString("username", ""),
+                sharedPreferences.getString("email", "")
+        };
+    }
 }

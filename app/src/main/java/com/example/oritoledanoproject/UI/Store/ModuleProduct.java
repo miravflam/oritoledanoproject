@@ -14,46 +14,57 @@ public class ModuleProduct {
     Context context;
     Repository repository;
 
-    public ModuleProduct (Context context)
-    {
+    // בנאי שמאתחל את מחסן הנתונים (repository)
+    public ModuleProduct(Context context) {
         this.context = context;
         repository = new Repository(context);
     }
 
-    public void addProduct(String gender, String type, String situation, String description, String price, Bitmap photo) { repository.addProduct(gender, type, situation, description, price ,photo); }
+    // הוספת מוצר למאגר הנתונים
+    public void addProduct(String gender, String type, String situation, String description, String price, Bitmap photo) {
+        repository.addProduct(gender, type, situation, description, price, photo);
+    }
 
-    public boolean checkUps(String gender, String quality, String type, String description, String price ,ImageView imageView)
-    {
+    // בדיקת תקינות הנתונים של המוצר לפני הוספתו למחסן הנתונים
+    public boolean checkUps(String gender, String quality, String type, String description, String price, ImageView imageView) {
 
-        if(gender.equals("מגדר ומידה")){
+        // בדיקת תקינות שדה המגדר
+        if (gender.equals("מגדר ומידה")) {
             Toast.makeText(context, "בחר מגדר ומידה", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if(quality.equals("מצב המוצר")){
+        // בדיקת תקינות שדה איכות המוצר
+        if (quality.equals("מצב המוצר")) {
             Toast.makeText(context, "בחר את מצב המוצר", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if(type.equals("סוג מוצר")){
+        // בדיקת תקינות שדה סוג המוצר
+        if (type.equals("סוג מוצר")) {
             Toast.makeText(context, "בחר את סוג מוצר", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (description.equals("")){
+
+        // בדיקת תקינות שדה התיאור
+        if (description.equals("")) {
             Toast.makeText(context, "רשום תיאור", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(price.isEmpty())
-        {
+
+        // בדיקת תקינות שדה המחיר
+        if (price.isEmpty()) {
             Toast.makeText(context, "רשום מחיר", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(imageView.getTag().equals("NoPic"))
-        {
+
+        // בדיקת תקינות התמונה (אם לא נוספה תמונה)
+        if (imageView.getTag().equals("NoPic")) {
             Toast.makeText(context, "תוסיף תמונה", Toast.LENGTH_SHORT).show();
             return false;
         }
 
+        // אם כל הבדיקות עברו בהצלחה, הפונקציה תחזיר true
         return true;
     }
 

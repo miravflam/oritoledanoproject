@@ -26,21 +26,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLogin;
     TextView tvReg;
     ModuleLogin moduleLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // יצירת אובייקט של ModuleLogin לתקשורת עם Firebase
         moduleLogin = new ModuleLogin(this);
+
         etUser = findViewById(R.id.etUser);
         etPass = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.buttonLogin);
         tvReg = findViewById(R.id.tvRegister);
-        btnLogin.setOnClickListener(this);
-        tvReg.setOnClickListener(this);
         cb = findViewById(R.id.checkbox);
 
+        btnLogin.setOnClickListener(this);
+        tvReg.setOnClickListener(this);
 
-        if (moduleLogin.CredentialsExist()){
+        // בדיקה אם קיימות נתוני התחברות זכורים ואם כן - ניסיון להתחבר
+        if (moduleLogin.CredentialsExist()) {
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("מתחבר");
             progressDialog.setCancelable(false);
@@ -57,8 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 startActivity(intent);
                             }
                         });
-                    }
-                    else {
+                    } else {
                         progressDialog.dismiss();
                         Toast.makeText(MainActivity.this, "המשתמש לא נמצא", Toast.LENGTH_SHORT).show();
                         moduleLogin.deleteData();
@@ -66,43 +70,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
-
-
-
     }
 
     @Override
     public void onClick(View v) {
-
-        if(v == tvReg)
-        {
+        // בדיקה איזה רכיב נלחץ ופעולה המתאימה לכך
+        if (v == tvReg) {
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
 
-        if(v == btnLogin) {
-            if (etUser.getText().toString().equals("")){
+        if (v == btnLogin) {
+            // בדיקת תקינות הקלט וניסיון להתחבר
+            if (etUser.getText().toString().equals("")) {
                 Toast.makeText(this, "מלא איימיל", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (etPass.getText().toString().equals("")){
+            if (etPass.getText().toString().equals("")) {
                 Toast.makeText(this, "מלא סיסמא", Toast.LENGTH_SHORT).show();
                 return;
             }
-            moduleLogin.getUser(etUser.getText().toString(), etPass.getText().toString(),new FirebaseHelper.UserFound() {
+            moduleLogin.getUser(etUser.getText().toString(), etPass.getText().toString(), new FirebaseHelper.UserFound() {
                 @Override
                 public void onUserFound() {
                     Intent intent = new Intent(MainActivity.this, StoreActivity.class);
-                    moduleLogin.RememberMe(cb.isChecked(),etUser.getText().toString(),etPass.getText().toString());
+                    // במידה והסימן "זכור אותי" מסומן, שמירת נתוני התחברות
+                    moduleLogin.RememberMe(cb.isChecked(), etUser.getText().toString(), etPass.getText().toString());
                     startActivity(intent);
                 }
             });
-
-
-
-
-
         }
     }
-
 }
