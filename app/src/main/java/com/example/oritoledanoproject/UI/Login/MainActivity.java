@@ -81,16 +81,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v == btnLogin) {
-
-                        moduleLogin.getUser(etUser.getText().toString(), etPass.getText().toString(),new FirebaseHelper.UserFound() {
-                            @Override
-                            public void onUserFound() {
-                                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
-                                moduleLogin.RememberMe(cb.isChecked(),etUser.getText().toString(),etPass.getText().toString());
-
-                                startActivity(intent);
-                            }
-                        });
+            if (etUser.getText().toString().equals("")){
+                Toast.makeText(this, "מלא איימיל", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etPass.getText().toString().equals("")){
+                Toast.makeText(this, "מלא סיסמא", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            moduleLogin.getUser(etUser.getText().toString(), etPass.getText().toString(),new FirebaseHelper.UserFound() {
+                @Override
+                public void onUserFound() {
+                    Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                    moduleLogin.RememberMe(cb.isChecked(),etUser.getText().toString(),etPass.getText().toString());
+                    startActivity(intent);
+                }
+            });
 
 
 

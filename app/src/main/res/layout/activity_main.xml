@@ -21,7 +21,7 @@
         android:id="@+id/etUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="איימיל או סיסמא"
+        android:hint="איימיל"
         android:gravity="right"
         android:textColorHint="#785043"
         android:textColor="#785043"

@@ -85,13 +85,15 @@
              android:layout_width="wrap_content"
              android:layout_height="61dp"
              android:layout_marginTop="15dp"/>
+
          <Spinner
 
              android:id="@+id/typeSpinner"
              android:layout_width="wrap_content"
              android:layout_height="61dp"
              android:layout_marginLeft="20dp"
-             android:layout_marginTop="15dp"/>
+             android:layout_marginTop="15dp" />
+
          <Spinner
 
              android:id="@+id/situationSpinner"
@@ -110,14 +112,14 @@
                  android:layout_height="50dp"
                  android:inputType="numberDecimal"
                  android:layout_marginLeft="30dp"
-                 android:hint="mininmum price" />
+                 android:hint="מחיר מינימלי" />
 
              <EditText
                  android:id="@+id/etMax"
                  android:layout_width="wrap_content"
                  android:layout_height="50dp"
                  android:inputType="numberDecimal"
-                 android:hint="maximum price"
+                 android:hint="מחיר מקסימלי"
                  android:layout_marginLeft="30dp" />
 
      </LinearLayout>

@@ -27,7 +27,7 @@
         android:padding="12dp"
         android:textColor="#785043"
         android:textColorHint="#785043"
-        android:maxLength="10"
+        android:maxLength="25"
         android:layout_marginBottom="12dp"/>
 
     <EditText

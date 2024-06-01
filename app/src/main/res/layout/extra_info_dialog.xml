@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:text="טלפון: "
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:background="#4D000000"
         android:textSize="25dp" />
 
@@ -34,7 +34,7 @@
         android:layout_height="88dp"
         android:text="שם: "
         android:textSize="25dp"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:background="#4D000000"
 
         />
@@ -45,7 +45,7 @@
         android:layout_height="88dp"
         android:text="כתובת: "
         android:textSize="25dp"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:background="#4D000000"
 
 

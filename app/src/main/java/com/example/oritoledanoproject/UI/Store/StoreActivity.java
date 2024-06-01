@@ -339,6 +339,18 @@ public class StoreActivity extends AppCompatActivity {
                 btnFilter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (etMax.getText().toString().isEmpty()&&etMin.getText().toString().isEmpty()){
+                            Toast.makeText(StoreActivity.this, "מלא תיבת מחיר מקסימלי ומחיר מינימלי", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (etMax.getText().toString().isEmpty()){
+                            Toast.makeText(StoreActivity.this, "מלא תיבת מחיר מקסימלי", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (etMin.getText().toString().isEmpty()){
+                            Toast.makeText(StoreActivity.this, "מלא תיבת מחיר מינימלי", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if(etMax.getText().toString().isEmpty() && etMin.getText().toString().isEmpty())
                         {
                             tableLayout.removeAllViews();
@@ -369,6 +381,7 @@ public class StoreActivity extends AppCompatActivity {
                         }
                         if(Double.parseDouble(etMax.getText().toString()) < Double.parseDouble(etMin.getText().toString()))
                         {
+                            Toast.makeText(StoreActivity.this, "המחיר המקסימלי נמוך מהמחיר מהמינימלי מלא שוב את התיבות ", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         if(!etMin.getText().toString().isEmpty() && !etMin.getText().toString().isEmpty())
