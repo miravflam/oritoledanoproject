@@ -622,5 +622,13 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
 
+        tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StoreActivity.this, updateuseranddeleteproduct.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
