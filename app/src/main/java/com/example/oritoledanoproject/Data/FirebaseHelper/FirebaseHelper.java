@@ -172,6 +172,83 @@ public class FirebaseHelper {
         });
     }
 
+public interface gotuser{
+        void ongotuser(String name,String pass,String email,String phone,String addres);
+    }
+
+
+    public void getUser(String FireId, gotuser gotuser) {
+        db.collection("users").document(FireId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                gotuser.ongotuser(task.getResult().getData().get("name").toString(),task.getResult().getData().get("password").toString(),task.getResult().getData().get("email").toString(),task.getResult().getData().get("phone").toString(),task.getResult().getData().get("address").toString());
+
+            }
+        });
+    }
+
+    public interface userprodute{
+        void userProduct(LinkedList<Map<String,Object>> products);
+    }
+    public void getUsersProduct(String fireId,userprodute userprodute) {
+        db.collection("users").document(fireId).collection("products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                LinkedList<Map<String,Object>> products = new LinkedList<>();
+                for (DocumentSnapshot documentSnapshot :task.getResult()) {
+                    storageRef.child(documentSnapshot.getData().get("photoPath").toString()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task2) {
+                            Map<String,Object> m = new HashMap();
+                            m.put("description",documentSnapshot.getData().get("description"));
+                            m.put("price",documentSnapshot.getData().get("price"));
+                            m.put("situation",documentSnapshot.getData().get("situation"));
+                            m.put("gender",documentSnapshot.getData().get("gender"));
+                            m.put("type",documentSnapshot.getData().get("type"));
+                            m.put("photo",task2.getResult());
+                            m.put("id",documentSnapshot.getId());
+                            products.add(m);
+                            if (products.size()==task.getResult().size()){
+                                userprodute.userProduct(products);
+                            }
+                        }
+                    });
+                }
+                userprodute.userProduct(products);
+
+                }
+
+        });
+    }
+
+
+    public void deleteProduct(String fireId,String productId ) {
+        db.collection("users").document(fireId).collection("products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                for (DocumentSnapshot documentSnapshot :task.getResult()) {
+                    if (documentSnapshot.getId().equals(productId)) {
+                        storageRef.child(documentSnapshot.getData().get("photoPath").toString()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                db.collection("users").document(fireId).collection("products").document(documentSnapshot.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(context, "נמחק בהצלחה", Toast.LENGTH_SHORT).show();
+
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                }
+            }
+        });
+    }
+
     // ממשק להחזרת אימייל קיים
     public interface UserFetched {
         void onUserFetched(boolean flag);
@@ -256,6 +333,32 @@ public class FirebaseHelper {
                     public void onFailure(@NonNull Exception e) {
                     }
                 });
+    }
+
+    public interface userupdated{
+        void onupdatecomleted();
+
+    }
+
+    public void updateUser(String name, String password, String email, String address, String phone,userupdated userupdated) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("name", name);
+        user.put("password", password);
+        user.put("email", email);
+        user.put("address", address);
+        user.put("phone", phone);
+
+
+        // הוספת משתמש חדש עם מזהה שנוצר
+        db.collection("users").document(CurrentUser.getFireID())
+                .update(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        userupdated.onupdatecomleted();
+                    }
+                });
+
     }
 
 }

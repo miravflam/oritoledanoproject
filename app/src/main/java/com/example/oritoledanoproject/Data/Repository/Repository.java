@@ -38,5 +38,18 @@ public class Repository {
     public void emailIsExist(String email, FirebaseHelper.UserFetched callback) {
         myFirebaseHelper.emailIsExist(email, callback);
     }
+    public void updateUser(String name, String password, String email,String phone ,String address, FirebaseHelper.userupdated userupdated){
+        myFirebaseHelper.updateUser(name, password, email, phone,address ,userupdated);
+    }
+    public void getUsersProduct(String fireId, FirebaseHelper.userprodute userprodute){
+        myFirebaseHelper.getUsersProduct(fireId, userprodute);
+    }
+
+    public void deleteProduct(String fireId, String productId ){
+        myFirebaseHelper.deleteProduct(fireId, productId);
+    }
+    public void getUser(String FireId, FirebaseHelper.gotuser gotuser){
+        myFirebaseHelper.getUser(FireId,gotuser);
+    }
 }
 

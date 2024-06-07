@@ -68,6 +68,8 @@ public class StoreActivity extends AppCompatActivity {
         fitsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fitSpinner.setAdapter(fitsAdapter);
 
+
+
         // הגדרת מאזין לבחירת פריט בספינר המתאים
         fitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -306,6 +308,16 @@ public class StoreActivity extends AppCompatActivity {
             public void onProductsFetched(LinkedList<Map<String, Object>> list) {
                 pd.dismiss();
                 tvName = findViewById(R.id.userNameTextView);
+                tvName.setClickable(true);
+                tvName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(StoreActivity.this, updateuseranddeleteproduct.class);
+                        startActivity(intent);
+                    }
+                });
+
+
                 btnAddProduct= findViewById(R.id.btnAddProduct);
                 etMax = findViewById(R.id.etMax);
                 etMin = findViewById(R.id.etMin);
@@ -622,13 +634,7 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
 
-        tvName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StoreActivity.this, updateuseranddeleteproduct.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
 }

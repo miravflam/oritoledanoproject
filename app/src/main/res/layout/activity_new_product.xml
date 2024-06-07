@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5DC"
-    tools:context=".UI.Store.newProduct"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".UI.Store.newProduct">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -18,14 +19,14 @@
 
 
             <TextView
-                android:text="הוספת מוצר"
-                android:textSize="50dp"
-                android:layout_gravity="center"
-                android:textColorHint="#785043"
-                android:textColor="#785043"
-                android:backgroundTint="#785043"
                 android:layout_width="295dp"
-                android:layout_height="71dp">
+                android:layout_height="71dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#785043"
+                android:text="הוספת מוצר"
+                android:textColor="#785043"
+                android:textColorHint="#785043"
+                android:textSize="50dp">
 
             </TextView>
 
@@ -34,55 +35,56 @@
                 android:id="@+id/fitsSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
-                android:textColorHint="#785043"
-                android:textColor="#785043"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="#785043"
-                android:layout_marginTop="15dp"/>
+                android:textColor="#785043"
+                android:textColorHint="#785043" />
 
             <Spinner
                 android:id="@+id/situationSpinner"
-                android:textColorHint="#785043"
-                android:textColor="#785043"
-                android:backgroundTint="#785043"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:backgroundTint="#785043"
+                android:textColor="#785043"
+                android:textColorHint="#785043" />
 
             <Spinner
                 android:id="@+id/categorySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:textColorHint="#785043"
-                android:textColor="#785043"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="#785043"
-                android:layout_marginTop="15dp"/>
+                android:textColor="#785043"
+                android:textColorHint="#785043" />
 
             <EditText
                 android:id="@+id/tvInfo"
-                android:layout_marginTop="15dp"
                 android:layout_width="339dp"
                 android:layout_height="86dp"
                 android:layout_gravity="center"
-                android:textColorHint="#785043"
-                android:textColor="#785043"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="#785043"
                 android:gravity="center"
-                android:textSize="25dp"
+                android:hint="תיאור המוצר"
                 android:maxLength="100"
-                android:hint="תיאור המוצר"></EditText>
+                android:textColor="#785043"
+                android:textColorHint="#785043"
+                android:textSize="25dp"></EditText>
+
             <EditText
                 android:id="@+id/etPrice"
-                android:layout_marginTop="15dp"
                 android:layout_width="339dp"
                 android:layout_height="86dp"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:textColorHint="#785043"
-                android:textColor="#785043"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="#785043"
-                android:textSize="25dp"
+                android:gravity="center"
+                android:hint="מחיר המוצר"
                 android:inputType="numberDecimal"
-                android:hint="מחיר המוצר"></EditText>
+                android:textColor="#785043"
+                android:textColorHint="#785043"
+                android:textSize="25dp"></EditText>
 
             <ImageView
                 android:id="@+id/btnImg"
@@ -96,14 +98,14 @@
 
             <Button
                 android:id="@+id/btnSend"
-                android:textSize="25dp"
                 android:layout_width="145dp"
                 android:layout_height="58dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:textColor="#ECE7E5"
                 android:background="@drawable/rounded"
-                android:text="שלח"></Button>
+                android:text="שלח"
+                android:textColor="#ECE7E5"
+                android:textSize="25dp"></Button>
 
             <Button
                 android:id="@+id/btnBack"
