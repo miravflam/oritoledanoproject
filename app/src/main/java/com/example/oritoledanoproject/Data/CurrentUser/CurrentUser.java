@@ -16,6 +16,8 @@ public class CurrentUser {
         return fireID;
     }
 
+    public static String getEmail(){return  email;}
+
     // פונקציה סטטית לאתחול המשתמש הנוכחי
     public static void initializeUser(String name, String email, String fireID) {
         // הגדרת שמות המשתנים הסטטיים עם הערכים המתקבלים

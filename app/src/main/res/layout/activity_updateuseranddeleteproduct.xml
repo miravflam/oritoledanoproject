@@ -18,6 +18,8 @@
         android:gravity="center"
         android:text="משתמש"
         android:textSize="20dp"
+        android:layout_marginTop="3dp"
+
 
         ></TextView>
 
@@ -27,6 +29,10 @@
         android:id="@+id/etname"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="#AA000000"
+        android:layout_marginTop="7dp"
+        android:maxLength="25"
 
         ></EditText>
 
@@ -35,7 +41,13 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_gravity="center"
-        android:gravity="center"></EditText>
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="#AA000000"
+        android:layout_marginTop="3dp"
+        android:maxLength="15"
+
+        ></EditText>
 
     <EditText
         android:layout_width="match_parent"
@@ -43,6 +55,11 @@
         android:id="@+id/etemail"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="#AA000000"
+        android:layout_marginTop="3dp"
+        android:maxLength="34"
+        android:inputType="textEmailAddress"
         ></EditText>
     <EditText
         android:layout_width="match_parent"
@@ -50,6 +67,11 @@
         android:id="@+id/etaddres"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="#AA000000"
+        android:layout_marginTop="3dp"
+        android:maxLength="25"
+        android:inputType="textPostalAddress"
         ></EditText>
     <EditText
         android:layout_width="match_parent"
@@ -57,6 +79,11 @@
         android:id="@+id/etphone"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="#AA000000"
+        android:layout_marginTop="3dp"
+        android:inputType="phone"
+        android:maxLength="10"
         ></EditText>
 
     <Button
@@ -92,14 +119,14 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded"
         android:gravity="center"
-        android:text="המוצרים"
+        android:text="המוצרים שלך:"
         android:textSize="20dp"
         ></TextView>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/spinnerScroll">
 
         <LinearLayout
@@ -125,11 +152,11 @@
         </LinearLayout>
 
 
+
+
+
+
     </ScrollView>
-
-
-
-
 
 
 

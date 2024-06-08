@@ -15,6 +15,10 @@ public moduleupdateuser(Context context)
         rp =  new Repository(context);
         this.context=context;
 }
+
+    public void emailIsExist(String email, FirebaseHelper.UserFetched callback) {
+        rp.emailIsExist(email, callback);
+    }
     public void getUsersProduct(String fireId, FirebaseHelper.userprodute userprodute){
         rp.getUsersProduct(fireId, userprodute);
     }
@@ -76,7 +80,10 @@ public moduleupdateuser(Context context)
         }
 
         String email = etEmail.getText().toString();
-
+        if (email.indexOf("@") == -1) {
+            etEmail.setError("אימייל חייב להכיל שטרודל");
+            return false;
+        }
 
         if (email.indexOf("@") != email.lastIndexOf("@")) {
             etEmail.setError("איימיל לא תקין");

@@ -51,5 +51,6 @@ public class Repository {
     public void getUser(String FireId, FirebaseHelper.gotuser gotuser){
         myFirebaseHelper.getUser(FireId,gotuser);
     }
+
 }
 

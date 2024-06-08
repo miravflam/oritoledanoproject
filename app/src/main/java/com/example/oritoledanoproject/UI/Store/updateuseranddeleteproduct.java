@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.oritoledanoproject.Data.CurrentUser.CurrentUser;
 import com.example.oritoledanoproject.Data.FirebaseHelper.FirebaseHelper;
 import com.example.oritoledanoproject.R;
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 
 import java.net.URI;
 import java.util.LinkedList;
@@ -96,7 +97,7 @@ public class updateuseranddeleteproduct extends AppCompatActivity implements Vie
 
                             // Create TextView for marker description
                             TextView descriptionTextView = new TextView(getBaseContext());
-                            descriptionTextView.setText(" "+products.get(i).get("description").toString() +" ");
+                            descriptionTextView.setText(" תיאור: "+products.get(i).get("description").toString() +"  ");
                             descriptionTextView.setTextSize(16);
                             descriptionTextView.setTextColor(getResources().getColor(android.R.color.black, null));
                             descriptionTextView.setLayoutParams(new TableRow.LayoutParams(
@@ -106,7 +107,7 @@ public class updateuseranddeleteproduct extends AppCompatActivity implements Vie
 
                             // Create TextView for marker ID
                             TextView idGender = new TextView(getBaseContext());
-                            idGender.setText(" "+products.get(i).get("gender").toString()+" ");
+                            idGender.setText(" מגדר ומידה: "+products.get(i).get("gender").toString()+"  ");
                             idGender.setTextSize(16);
                             idGender.setTextColor(getResources().getColor(android.R.color.black, null));
                             idGender.setLayoutParams(new TableRow.LayoutParams(
@@ -115,7 +116,7 @@ public class updateuseranddeleteproduct extends AppCompatActivity implements Vie
                                     1f));
 
                             TextView idPrice = new TextView(getBaseContext());
-                            idPrice.setText(" "+products.get(i).get("price").toString()+" ");
+                            idPrice.setText("  מחיר:"+products.get(i).get("price").toString()+"  ");
                             idPrice.setTextSize(16);
                             idPrice.setTextColor(getResources().getColor(android.R.color.black, null));
                             idPrice.setLayoutParams(new TableRow.LayoutParams(
@@ -125,7 +126,7 @@ public class updateuseranddeleteproduct extends AppCompatActivity implements Vie
 
 
                             TextView situation = new TextView(getBaseContext());
-                            situation.setText(" "+products.get(i).get("situation").toString()+" ");
+                            situation.setText(" מצב: "+products.get(i).get("situation").toString()+"  ");
                             situation.setTextSize(16);
                             situation.setTextColor(getResources().getColor(android.R.color.black, null));
                             situation.setLayoutParams(new TableRow.LayoutParams(
@@ -135,7 +136,7 @@ public class updateuseranddeleteproduct extends AppCompatActivity implements Vie
 
 
                             TextView type = new TextView(getBaseContext());
-                            type.setText(" "+products.get(i).get("type").toString()+" ");
+                            type.setText("  סוג המוצר: "+products.get(i).get("type").toString()+"  ");
                             type.setTextSize(16);
                             type.setTextColor(getResources().getColor(android.R.color.black, null));
                             type.setLayoutParams(new TableRow.LayoutParams(
@@ -147,6 +148,7 @@ public class updateuseranddeleteproduct extends AppCompatActivity implements Vie
 
                             // Create Button to delete marker
                             Button actionButton = new Button(getBaseContext());
+                            actionButton.setBackgroundResource(R.drawable.rounded);
                             actionButton.setText("Delete");
                             final int x = i;
                             actionButton.setOnClickListener(new View.OnClickListener() {
@@ -196,17 +198,55 @@ public class updateuseranddeleteproduct extends AppCompatActivity implements Vie
             startActivity(new Intent(updateuseranddeleteproduct.this,StoreActivity.class));
 
         }
+        boolean IsOk = false;
         if (v==btnupdate){
-            if (moduleupdateuser.CheckUps(etname,etemail,etpass,etphone,etadress)){
-                moduleupdateuser.updateUser(etname.getText().toString(), etpass.getText().toString(), etemail.getText().toString(), etadress.getText().toString(), etphone.getText().toString(), new FirebaseHelper.userupdated() {
-                    @Override
-                    public void onupdatecomleted() {
-                        CurrentUser.initializeUser(etname.getText().toString(),etemail.getText().toString(),CurrentUser.getFireID());
-                        startActivity(new Intent(updateuseranddeleteproduct.this,StoreActivity.class));
-                        Toast.makeText(updateuseranddeleteproduct.this, "עודכן בהצלחה", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            if (!moduleupdateuser.CheckUps(etname,etemail,etpass,etphone,etadress)){
+                return;
             }
+
+            moduleupdateuser.emailIsExist(etemail.getText().toString(), new FirebaseHelper.UserFetched() {
+                @Override
+                public void onUserFetched(boolean flag) {
+                    if (!flag){
+                        //לא נמצא משתמש עם אימייל כזה
+                        moduleupdateuser.updateUser(etname.getText().toString(), etpass.getText().toString(), etemail.getText().toString(), etadress.getText().toString(), etphone.getText().toString(), new FirebaseHelper.userupdated() {
+                            @Override
+                            public void onupdatecomleted() {
+                                CurrentUser.initializeUser(etname.getText().toString(),etemail.getText().toString(),CurrentUser.getFireID());
+                                startActivity(new Intent(updateuseranddeleteproduct.this,StoreActivity.class));
+                                Toast.makeText(updateuseranddeleteproduct.this, "עודכן בהצלחה", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }else {
+                        //נמצא משתמש עם אימייל כזה
+                        //בדיקה אם נעשה שינוי בתיבת אימייל
+                        if (CurrentUser.getEmail().equals(etemail.getText().toString()))
+                        {
+                            //אם לא נעשה שינוי בתיבת אימייל
+                            moduleupdateuser.updateUser(etname.getText().toString(), etpass.getText().toString(), etemail.getText().toString(), etadress.getText().toString(), etphone.getText().toString(), new FirebaseHelper.userupdated() {
+                                @Override
+                                public void onupdatecomleted() {
+                                    CurrentUser.initializeUser(etname.getText().toString(),etemail.getText().toString(),CurrentUser.getFireID());
+                                    startActivity(new Intent(updateuseranddeleteproduct.this,StoreActivity.class));
+                                    Toast.makeText(updateuseranddeleteproduct.this, "עודכן בהצלחה", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                        else {
+                            //נעשה שינוי והמייל קיים
+                            // הצגת שגיאה אם האימייל כבר קיים במערכת
+                            etemail.setError("האיימיל קיים כבר במערכת");
+
+                        }
+                    }
+                }
+            });
+
+
+
+
+
+
         }
     }
 }
